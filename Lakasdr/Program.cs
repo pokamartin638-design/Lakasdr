@@ -1,3 +1,6 @@
+using Lakasdr.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace Lakasdr
 {
     public class Program
@@ -8,6 +11,9 @@ namespace Lakasdr
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<WorkDbContext>(options => options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB; Trusted_Connection=True;Database=WorkDb"));
+
 
             var app = builder.Build();
 

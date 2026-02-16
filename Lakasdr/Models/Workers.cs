@@ -1,12 +1,12 @@
 ﻿namespace Lakasdr.Models
 {
-    public class Work
+    public class Workers
     {
         public int Id { get; set; }
-        public string Works { get; set; }
-        public int Price { get; set; }
+        public string Name { get; set; }
         public int WorkId { get; set; }
+        public int Exp {  get; set; }
 
-        
+
     }
 }
