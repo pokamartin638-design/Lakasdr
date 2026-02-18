@@ -11,6 +11,8 @@ namespace Lakasdr
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDistributedMemoryCache(); // EZ KELL!
+            builder.Services.AddSession();
 
             builder.Services.AddDbContext<WorkDbContext>(options => options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB; Trusted_Connection=True;Database=WorkDb"));
 
@@ -27,6 +29,8 @@ namespace Lakasdr
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseRouting();
 

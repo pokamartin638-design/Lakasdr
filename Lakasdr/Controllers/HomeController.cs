@@ -22,6 +22,61 @@ namespace Lakasdr.Controllers
         {
             return View();
         }
+        private const string FixUsername = "admin";
+        private const string FixPassword = "1234";
+
+        [HttpGet]
+        public IActionResult Admin()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Admin(string username, string password)
+        {
+            if (username == FixUsername && password == FixPassword)
+            {
+                HttpContext.Session.SetString("IsAdmin", "true");
+                return RedirectToAction("AdminFelulet");
+
+            }
+
+            ViewBag.Error = "Hibás felhasználónév vagy jelszó!";
+            return View();
+        }
+        public IActionResult AdminFelulet()
+        {
+            if (HttpContext.Session.GetString("IsAdmin") != "true")
+                return RedirectToAction("Login");
+
+            return View();
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index");
+        }
+
+        
+        public IActionResult Update()
+        {
+            return View();
+        }
+
+        public IActionResult ImageUpdate()
+        {
+            return View();
+        }
+
+        public IActionResult WorkersUpdate()
+        {
+            return View();
+        }
+
+
+
 
         public IActionResult Privacy()
         {
