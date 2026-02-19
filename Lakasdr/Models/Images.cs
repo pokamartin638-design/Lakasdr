@@ -1,0 +1,11 @@
+﻿namespace Lakasdr.Models
+{
+  
+        public class Image
+        {
+            public int Id { get; set; }
+            public string Nev { get; set; }
+            public DateTime UploadDate { get; set; } = DateTime.Now;
+        }
+    
+}
