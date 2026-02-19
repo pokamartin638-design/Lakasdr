@@ -59,7 +59,8 @@ namespace Lakasdr.Controllers
             return RedirectToAction("Index");
         }
 
-        
+
+     
         public IActionResult Update()
         {
             return View();
