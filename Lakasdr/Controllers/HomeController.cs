@@ -28,6 +28,8 @@ namespace Lakasdr.Controllers
         {
             return View();
         }
+
+//--------------------------------------------------------------------------------------------------------
         private const string FixUsername = "admin";
         private const string FixPassword = "1234";
 
@@ -59,24 +61,23 @@ namespace Lakasdr.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Index");
         }
-
-
-     
+//--------------------------------------------------------------------------------------------------------
         public IActionResult Update()
         {
             return View();
         }
-
+//--------------------------------------------------------------------------------------------------------
         public IActionResult ImageUpdate()
         {
             return View();
         }
-
+//--------------------------------------------------------------------------------------------------------
         public IActionResult WorkersUpdate()
         {
             return View();
         }
 
+//--------------------------------------------------------------------------------------------------------
         [HttpPost]
         public async Task<IActionResult> ImageUpload(IFormFile file)
         {
