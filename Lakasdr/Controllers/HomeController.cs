@@ -1,16 +1,22 @@
-using System.Diagnostics;
+using Lakasdr.Data;
 using Lakasdr.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Lakasdr.Controllers
 {
+ 
+    
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly WorkDbContext _db;
+        private readonly IWebHostEnvironment _env;
+        public HomeController(WorkDbContext db, IWebHostEnvironment env)
         {
-            _logger = logger;
+            _db = db;
+            _env = env;
         }
 
         public IActionResult Index()
@@ -76,9 +82,40 @@ namespace Lakasdr.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ImageUpload(IFormFile file)
+        {
+            if (file != null)
+            {
+                string uploads = Path.Combine(_env.WebRootPath, "images");
+                string filePath = Path.Combine(uploads, file.FileName);
 
+                if (!Directory.Exists(uploads))
+                {
+                    Directory.CreateDirectory(uploads);
+                }
 
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
 
+                _db.Images.Add(new Image
+                {
+                    Nev = file.Name,
+                    UploadDate = DateTime.Now
+                });
+                _db.SaveChanges();
+            }
+            return RedirectToAction("Gallery");
+        }
+        public IActionResult Gallery()
+        {
+            var images = _db.Images.ToList();
+            return View(images);
+        }
+
+//--------------------------------------------------------------------------------------------------------
         public IActionResult Privacy()
         {
             return View();
@@ -89,5 +126,7 @@ namespace Lakasdr.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+       
     }
 }

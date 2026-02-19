@@ -13,5 +13,6 @@ namespace Lakasdr.Data
        public DbSet<Jobs> Jobs { get; set; }
         public DbSet<Work> Work { get; set; }
         public DbSet<Workers> Workers { get; set; }
+        public DbSet<Image>Images { get; set; }
     }
 }
