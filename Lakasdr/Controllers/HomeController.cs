@@ -31,25 +31,20 @@ namespace Lakasdr.Controllers
 
             return View();
         }
-
         [HttpPost]
         public IActionResult Admin(string username, string password)
         {
             if (username == FixUsername && password == FixPassword)
             {
-                HttpContext.Session.SetString("IsAdmin", "true");
+                TempData["LoginSuccess"] = true;
                 return RedirectToAction("AdminFelulet");
-
             }
 
-            ViewBag.Error = "Hibás felhasználónév vagy jelszó!";
+            ViewBag.LoginStatus = "error";
             return View();
         }
         public IActionResult AdminFelulet()
         {
-            if (HttpContext.Session.GetString("IsAdmin") != "true")
-                return RedirectToAction("Login");
-
             return View();
         }
 

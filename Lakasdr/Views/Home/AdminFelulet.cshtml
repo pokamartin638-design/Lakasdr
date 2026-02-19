@@ -1,6 +1,24 @@
-﻿<h2>Admin felület</h2>
+﻿<div class="modal fade" id="successModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">Sikeres bejelentkezés</h5>
+            </div>
+            <div class="modal-body">
+                Üdvözlünk az Admin felületen!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="okButton">
+                    Rendben
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
-<p style="color:green">Sikeres bejelentkezés!</p>
+<h2>Admin felület</h2>
+
+
 
 <a asp-action="Update">Hírek szerkesztése</a><br />
 <a asp-action="ImageUpdate">Képek szerkesztése</a><br />
@@ -9,3 +27,20 @@
 
 
 <a asp-action="Logout">Kijelentkezés</a>
+
+@if (TempData["LoginSuccess"] != null)
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            var myModal = new bootstrap.Modal(document.getElementById('successModal'));
+            myModal.show();
+
+            document.getElementById("okButton").addEventListener("click", function () {
+                myModal.hide();
+            });
+
+        });
+    </script>
+}
+
