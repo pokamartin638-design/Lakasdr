@@ -78,6 +78,18 @@ namespace Lakasdr.Controllers
         }
 
 //--------------------------------------------------------------------------------------------------------
+       public IActionResult Calculator()
+        {
+            return View();
+        }
+        public IActionResult Kiszamol()
+        {
+
+
+            return View();
+        }
+        
+        
         [HttpPost]
         public async Task<IActionResult> ImageUpload(IFormFile file)
         {
