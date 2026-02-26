@@ -1,22 +1,9 @@
-﻿@model List<Lakasdr.Models.Image>
+﻿<h2>Kép feltöltése</h2>
 
-<h2>Galéria</h2>
-
-<p>
-    <a asp-action="Upload">+ Új kép</a>
-</p>
-
-<table>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                <img src="@item.FilePath" width="150" />
-            </td>
-            <td>@item.Nev</td>
-            <td>
-                <a asp-action="Delete" asp-route-id="@item.Id">Törlés</a>
-            </td>
-        </tr>
-    }
-</table>
+<form asp-action="Upload" method="post" enctype="multipart/form-data">
+    <input type="text" name="nev" placeholder="Kép neve" />
+    <br /><br />
+    <input type="file" name="file" />
+    <br /><br />
+    <button type="submit">Feltöltés</button>
+</form>

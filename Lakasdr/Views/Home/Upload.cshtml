@@ -1,0 +1,22 @@
+﻿@model List<Lakasdr.Models.Image>
+
+<h2>Galéria</h2>
+
+<p>
+    <a asp-action="ImageUpdate">+ Új kép</a>
+</p>
+
+<table>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="@item.FilePath" width="150" />
+            </td>
+            <td>@item.Nev</td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.Id">Törlés</a>
+            </td>
+        </tr>
+    }
+</table>

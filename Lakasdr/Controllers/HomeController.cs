@@ -2,9 +2,10 @@ using Lakasdr.Data;
 using Lakasdr.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Lakasdr.Controllers
 {
@@ -12,11 +13,11 @@ namespace Lakasdr.Controllers
     
     public class HomeController : Controller
     {
-        private readonly WorkDbContext _context;
+        private readonly WorkDbContext _db;
         private readonly IWebHostEnvironment _env;
-        public HomeController(WorkDbContext context, IWebHostEnvironment env)
+        public HomeController(WorkDbContext db, IWebHostEnvironment env)
         { 
-            _context = context;
+            _db = db;
             _env = env;
         }
 
@@ -63,11 +64,7 @@ namespace Lakasdr.Controllers
             return RedirectToAction("Index");
         }
         //--------------------------------------------------------------------------------------------------------
-        public IActionResult Index1()
-        {
-            var images = _context.Images.ToList();
-            return View(images);
-        }
+        
 
         // UPLOAD FORM
         [HttpGet]
@@ -109,8 +106,8 @@ namespace Lakasdr.Controllers
                 UploadDate = DateTime.Now
             };
 
-            _context.Images.Add(image);
-            _context.SaveChanges();
+            _db.Images.Add(image);
+            _db.SaveChanges();
 
             return RedirectToAction("Index");
         }
@@ -118,7 +115,7 @@ namespace Lakasdr.Controllers
         // DELETE
         public IActionResult Delete(int id)
         {
-            var img = _context.Images.FirstOrDefault(x => x.Id == id);
+            var img = _db.Images.FirstOrDefault(x => x.Id == id);
             if (img == null) return NotFound();
 
             if (!string.IsNullOrEmpty(img.FilePath))
@@ -132,11 +129,12 @@ namespace Lakasdr.Controllers
                     System.IO.File.Delete(physicalPath);
             }
 
-            _context.Images.Remove(img);
-            _context.SaveChanges();
+            _db.Images.Remove(img);
+            _db.SaveChanges();
 
             return RedirectToAction("Index");
         }
+    
         //--------------------------------------------------------------------------------------------------------
         public IActionResult ImageUpdate()
         {
