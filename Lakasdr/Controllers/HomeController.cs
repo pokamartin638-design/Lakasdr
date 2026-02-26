@@ -109,7 +109,7 @@ namespace Lakasdr.Controllers
             _db.Images.Add(image);
             _db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return View("Upload");
         }
 
         // DELETE
