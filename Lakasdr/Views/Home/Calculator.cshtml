@@ -13,18 +13,18 @@
         <option value="5">Burkolás, vakolás</option>
 
         <option value="7">Vízvezeték javítás</option>
-        
-        <option value="8">Lámpa beszerelés</option>
-        <option value="9">Áramkör-kiépítés</option>
-
-        <option value="10">Nyílászáró csere</option>
-        <option value="11">Bútorokkal kapcs. munkák</option>
     </select>
 
     <br></br>
     <label>Írja be, hány m2 a munkaterület: </label>
-    
-    <input type="number" min="1" max="5000" name="terulet"/><br /><br />
+
+    <input type="number" min="1" max="5000" name="terulet" /><br /><br />
     <input type="submit" asp-action="Kiszamol" value="Kiszámolás" class="btn btn-primary"></input>
 
 </form>
+
+@if (ViewBag.Osszeg != null)
+{
+    <p>@ViewBag.Osszeg Ft az anyag ára, és a munkadíj (Becsült összeg)</p>
+}
+
