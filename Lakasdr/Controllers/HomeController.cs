@@ -79,7 +79,7 @@ namespace Lakasdr.Controllers
             _db.Images.Add(image);
             _db.SaveChanges();
 
-            return View("Upload");
+            return View("Index");
         }
 
         // DELETE
@@ -171,40 +171,6 @@ namespace Lakasdr.Controllers
 
             ViewBag.Osszeg = ossz;
             return View("Calculator");
-        }
-
-
-        [HttpPost]
-        public async Task<IActionResult> ImageUpload(IFormFile file)
-        {
-            if (file != null)
-            {
-                string uploads = Path.Combine(_env.WebRootPath, "images");
-                string filePath = Path.Combine(uploads, file.FileName);
-
-                if (!Directory.Exists(uploads))
-                {
-                    Directory.CreateDirectory(uploads);
-                }
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
-
-                _db.Images.Add(new Image
-                {
-                    Nev = file.Name,
-                    UploadDate = DateTime.Now
-                });
-                _db.SaveChanges();
-            }
-            return RedirectToAction("Gallery");
-        }
-        public IActionResult Gallery()
-        {
-            var images = _db.Images.ToList();
-            return View(images);
         }
 
 //--------------------------------------------------------------------------------------------------------
