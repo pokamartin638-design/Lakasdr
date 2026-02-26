@@ -149,6 +149,67 @@ namespace Lakasdr.Controllers
         }
 
 //--------------------------------------------------------------------------------------------------------
+       public IActionResult Calculator()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Kiszamol(int kategoria, int terulet)
+        {
+            int ossz = 0;
+
+
+            switch(kategoria)
+            {
+                case 1:
+                    ossz = ossz + terulet * 3000;
+                    break;
+
+                case 2:
+                    ossz = ossz + terulet * 6000;
+                    break;
+
+                case 3:
+                    ossz = ossz + terulet * 4500;
+                    break;
+
+                case 4:
+                    ossz = ossz + terulet * 5000;
+                    break;
+
+                case 5:
+                    ossz = ossz + terulet * 6000;
+                    break;
+
+                
+
+                case 7:
+                    ossz = ossz + terulet * 5000;
+                    break;
+
+                case 8:
+                    ossz = ossz + terulet * 4000; //!oradij!
+                    break;
+
+                case 9:
+                    ossz = ossz + terulet * 5000; //!oradij!
+                    break;
+
+                case 10:
+                    ossz = ossz + terulet * 5000; //!oradij!
+                    break;
+
+                case 11:
+                    ossz = ossz + terulet * 4000; //!oradij!
+                    break;
+            }
+                
+
+
+            return View();
+        }
+        
+        
         [HttpPost]
         public async Task<IActionResult> ImageUpload(IFormFile file)
         {
