@@ -31,38 +31,8 @@ namespace Lakasdr.Controllers
             return View();
         }
 
-//--------------------------------------------------------------------------------------------------------
-        private const string FixUsername = "admin";
-        private const string FixPassword = "1234";
 
-        [HttpGet]
-        public IActionResult Admin()
-        {
-
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Admin(string username, string password)
-        {
-            if (username == FixUsername && password == FixPassword)
-            {
-                TempData["LoginSuccess"] = true;
-                return RedirectToAction("AdminFelulet");
-            }
-
-            ViewBag.LoginStatus = "error";
-            return View();
-        }
-        public IActionResult AdminFelulet()
-        {
-            return View();
-        }
-
-        public IActionResult Logout()
-        {
-            HttpContext.Session.Clear();
-            return RedirectToAction("Index");
-        }
+        
         //--------------------------------------------------------------------------------------------------------
         
 
@@ -154,60 +124,56 @@ namespace Lakasdr.Controllers
         [HttpPost]
         public IActionResult Kiszamol(int kategoria, int terulet)
         {
+            int munkadij = 0;
             int ossz = 0;
+            int anyagar = 0;
 
 
-            switch(kategoria)
+
+            switch (kategoria)
             {
                 case 1:
-                    ossz = ossz + terulet * 3000;
+                    munkadij = 3000;
+                    anyagar = 600;
+                    ossz = munkadij * terulet + anyagar * terulet;
                     break;
 
                 case 2:
-                    ossz = ossz + terulet * 6000;
+                    munkadij = 6000;
+                    anyagar = 7500;
+                    ossz = munkadij * terulet + anyagar * terulet;
                     break;
 
                 case 3:
-                    ossz = ossz + terulet * 4500;
+                    munkadij = 4500;
+                    anyagar = 8000;
+                    ossz = munkadij * terulet + anyagar * terulet;
                     break;
 
                 case 4:
-                    ossz = ossz + terulet * 5000;
+                    munkadij = 5000;
+                    anyagar = 3000;
+                    ossz = munkadij * terulet + anyagar * terulet;
                     break;
 
                 case 5:
-                    ossz = ossz + terulet * 6000;
+                    munkadij = 6000;
+                    anyagar = 4000;
+                    ossz = munkadij * terulet + anyagar * terulet;
                     break;
-
-                
 
                 case 7:
-                    ossz = ossz + terulet * 5000;
-                    break;
+                    munkadij = 5000;
+                    ossz = munkadij * terulet;
 
-                case 8:
-                    ossz = ossz + terulet * 4000; //!oradij!
-                    break;
-
-                case 9:
-                    ossz = ossz + terulet * 5000; //!oradij!
-                    break;
-
-                case 10:
-                    ossz = ossz + terulet * 5000; //!oradij!
-                    break;
-
-                case 11:
-                    ossz = ossz + terulet * 4000; //!oradij!
                     break;
             }
-                
 
-
-            return View();
+            ViewBag.Osszeg = ossz;
+            return View("Calculator");
         }
-        
-        
+
+
         [HttpPost]
         public async Task<IActionResult> ImageUpload(IFormFile file)
         {
