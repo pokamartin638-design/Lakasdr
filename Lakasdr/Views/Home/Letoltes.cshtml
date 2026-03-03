@@ -1,0 +1,11 @@
+﻿@model List<string>
+
+<h2>Lista letöltése</h2>
+
+@foreach(var item in Model)
+{
+    <li>@item</li>
+}
+
+
+<a asp-action="listazas" class="btn">Lista letöltése</a>

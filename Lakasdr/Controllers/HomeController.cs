@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Lakasdr.Controllers
@@ -121,11 +122,30 @@ namespace Lakasdr.Controllers
         {
             return View();
         }
+
+
+        static List<string> calclista = new List<string>(); //calc. lista
+        string asd2 = "";
+        int ossz = 0;
+
         [HttpPost]
         public IActionResult Kiszamol(int kategoria, int terulet)
         {
+            var kategoriak = new Dictionary<int, string>
+    {
+                {1, "Szobafestés"},
+                {2, "Csempézés"},
+                {3, "Parkettázás"},
+                {4, "Tapétázás"},
+                {5, "Burkolás, vakolás"},
+                {7, "Vízvezeték javítás"}
+                };
+            var kateg = kategoriak.ContainsKey(kategoria) ? kategoriak[kategoria]
+        : "Ismeretlen munka";
+
+            
             int munkadij = 0;
-            int ossz = 0;
+            
             int anyagar = 0;
 
 
@@ -168,9 +188,37 @@ namespace Lakasdr.Controllers
 
                     break;
             }
-
             ViewBag.Osszeg = ossz;
+             asd2 = kateg+" "+terulet+"m2"+" "+ossz+" Ft";
+            calclista.Add(asd2);
             return View("Calculator");
+        }
+
+        public IActionResult Letoltes()
+        {
+            return View(calclista);
+        }
+
+        public IActionResult listazas()
+        {
+            var listaelem = calclista.ToList();
+
+            var szovegBuilder = new StringBuilder();
+
+            szovegBuilder.AppendLine("este kiverem :)");
+
+            foreach (var item in listaelem)
+            {
+                szovegBuilder.AppendLine(item);
+            }
+
+            var bytes = Encoding.UTF8.GetBytes(szovegBuilder.ToString());
+
+            return File(
+                bytes,              // fájl tartalma
+                "text/csv",         // típus
+                "munkalista.csv"  // fájl neve
+                );
         }
 
 //--------------------------------------------------------------------------------------------------------

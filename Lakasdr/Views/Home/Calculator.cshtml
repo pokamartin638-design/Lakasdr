@@ -19,8 +19,8 @@
     <label>Írja be, hány m2 a munkaterület: </label>
 
     <input type="number" min="1" max="5000" name="terulet" /><br /><br />
-    <input type="submit" asp-action="Kiszamol" value="Kiszámolás" class="btn btn-primary"></input>
-
+    <input type="submit" asp-action="Kiszamol" value="Kiszámolás" class="btn btn-primary"></input><br /><br />
+    <a asp-action="Letoltes" value="Lista letöltése">Lista letöltése</a>
 </form>
 
 @if (ViewBag.Osszeg != null)
