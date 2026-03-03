@@ -1,0 +1,52 @@
+﻿@model Lakasdr.Models.Jobs
+
+<a asp-action="Munkatars" asp-controller="Home">vissza lépés</a>
+
+munkatarsaink view:
+@model Lakasdr.Models.Workers
+
+@{
+    ViewData["Title"] = "Munkatársak";
+}
+
+<h3>Munkatársaink: </h3>
+
+<form method="get">
+    <select name="id" onchange="this.form.submit()" class="form-control">
+        @foreach (var worker in ViewBag.Workers)
+        {
+            <option value="@worker.Id">
+                @(Model != null && Model.Id == worker.Id ? "selected" : "")
+                @worker.Name
+            </option>
+        }
+    </select>
+</form>
+
+
+<table>
+    <thead>
+        <tr>
+            <td>Azonosító</td> 
+            <td>Név</td>
+            <td>Jelenlegi munka: </td>
+            <td>Korábbi munkái:</td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+                {
+                <tr>
+                    <td>@Model.Id</td>
+                    <td>@Model.Name</td>
+                    <td>
+                        @Model.WorkId 
+                        <a asp-action="Munkatekintes" asp-controller="Home">Munka megtekintése</a>
+                    </td>
+                    <td>@Model.Exp</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
