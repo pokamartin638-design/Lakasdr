@@ -30,11 +30,25 @@ namespace Lakasdr.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public IActionResult Munkatars(int? id)
+        {
+            ViewBag.Workers = _db.Workers.ToList();
+
+            Workers azonosito = null;
+
+            if (id != null)
+            {
+                azonosito = _db.Workers.FirstOrDefault(w => w.Id == id);
+            }
+
+            return View(azonosito);
+        }
 
 
-        
+
         //--------------------------------------------------------------------------------------------------------
-        
+
 
         // UPLOAD FORM
         [HttpGet]
