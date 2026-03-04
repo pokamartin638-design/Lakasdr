@@ -1,9 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Lakasdr.Data;
+using Lakasdr.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Lakasdr.Controllers
 {
     public class AdminController : Controller
     {
+        private readonly WorkDbContext _db;
+        private readonly IWebHostEnvironment _env;
+        public AdminController(WorkDbContext db, IWebHostEnvironment env)
+        {
+            _db = db;
+            _env = env;
+        }
+
         private const string FixUsername = "admin";
         private const string FixPassword = "1234";
 
@@ -36,9 +48,11 @@ namespace Lakasdr.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public IActionResult WorkersUpdate()
+        public IActionResult WorkersUpdate(Workers munkas)
         {
-            return View();
+            _db.Add(munkas);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

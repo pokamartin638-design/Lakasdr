@@ -1,15 +1,32 @@
 ﻿@model Lakasdr.Models.Workers
 
 <h2>Dolgozók szerkesztése: </h2>
-<br />
-<label class="form-label">Azonosító:</label>
-<input asp-for="Id" class="form-control" />
-<label class="form-label">Név:</label>
-<input asp-for="Name" class="form-control" />
-<label class="form-label">Munka azonosító:</label>
-<input asp-for="WorkId" class="form-control" />
-<label class="form-label">Tapasztalat:</label>
-<input asp-for="Exp" class="form-control" />
 
+<form asp-action="WorkersUpdate" method="post">
+    <div class="form-group">
+        <label asp-for="Id"></label>
+        <input asp-for="Id" class="form-control" />
+        <span asp-validation-for="Id" class="text-danger"></span>
+    </div>
 
-<a href="/Home/AdminFelulet" class="btn btn-sm btn-primary">Vissza lépés</a>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="WorkId"></label>
+        <input asp-for="WorkId" class="form-control" type="number" />
+        <span asp-validation-for="WorkId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Exp"></label>
+        <textarea asp-for="Exp" class="form-control"></textarea>
+        <span asp-validation-for="Exp" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Mentés</button>
+    <a asp-action="Index" class="btn btn-secondary">Mégse</a>
+</form>
