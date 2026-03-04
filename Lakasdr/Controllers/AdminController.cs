@@ -35,5 +35,10 @@ namespace Lakasdr.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        public IActionResult WorkersUpdate()
+        {
+            return View();
+        }
     }
 }

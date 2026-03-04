@@ -37,7 +37,7 @@
                     <td>@Model.Name</td>
                     <td>
                         @Model.WorkId 
-                        <a asp-action="Munkatekintes" asp-controller="Home">Munka megtekintése</a>
+                        <a asp-action="Munkatekintes" asp-controller="Home" asp-route-id="@Model.WorkId" >Munka megtekintése</a>
                     </td>
                     <td>@Model.Exp</td>
                 </tr>

@@ -1,0 +1,25 @@
+﻿@model Lakasdr.Models.Jobs
+
+<h3>Munkatársunk: </h3>
+
+<table>
+    <thead>
+        <tr>
+            <td>Azonosító</td>
+            <td>Neve</td>
+            <td>Leírás: </td>
+        </tr>
+    </thead>
+    <tbody>
+        {
+            {
+                <tr>
+                    <td>@Model.Id</td>
+                    <td>@Model.Name</td>
+                    <td> @Model.Description</td>
+                    <td><a asp-action="Munkatars" asp-controller="Home">Vissza lépés</a></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

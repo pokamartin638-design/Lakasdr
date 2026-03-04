@@ -1,4 +1,15 @@
-﻿<h2>Dolgozók szerkesztése: </h2>
+﻿@model Lakasdr.Models.Workers
+
+<h2>Dolgozók szerkesztése: </h2>
 <br />
+<label class="form-label">Azonosító:</label>
+<input asp-for="Id" class="form-control" />
+<label class="form-label">Név:</label>
+<input asp-for="Name" class="form-control" />
+<label class="form-label">Munka azonosító:</label>
+<input asp-for="WorkId" class="form-control" />
+<label class="form-label">Tapasztalat:</label>
+<input asp-for="Exp" class="form-control" />
+
 
 <a href="/Home/AdminFelulet" class="btn btn-sm btn-primary">Vissza lépés</a>

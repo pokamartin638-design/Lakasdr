@@ -43,7 +43,20 @@ namespace Lakasdr.Controllers
                 azonosito = _db.Workers.FirstOrDefault(w => w.Id == id);
             }
 
+            
             return View(azonosito);
+        }
+        [HttpGet]
+        public IActionResult Munkatekintes(int id)
+        {
+            var munka = _db.Jobs.FirstOrDefault(w => w.Id == id);
+
+            if(munka == null)
+            {
+                return NotFound();
+            }
+            
+            return View(munka);
         }
 
 
