@@ -94,30 +94,51 @@ namespace Lakasdr.Controllers
             _db.Images.Add(image);
             _db.SaveChanges();
 
-            return View("Index");
+            return View("ImageUpdate");
         }
 
         // DELETE
-        public IActionResult Delete(int id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteByName(string nev_delete)
         {
-            var img = _db.Images.FirstOrDefault(x => x.Id == id);
-            if (img == null) return NotFound();
+            if (string.IsNullOrWhiteSpace(nev_delete))
+            {
+                TempData["Error"] = "Add meg a törlendõ kép nevét!";
+                return RedirectToAction("Index"); // vagy ahova vissza akarsz menni
+            }
 
+            // Itt feltételezem, hogy az Image táblában van egy Név mezõd.
+            // (pl. Name, Nev, Title stb.) -> állítsd arra, ami nálad van!
+            var img = _db.Images.FirstOrDefault(x => x.Nev == nev_delete);
+
+            // Ha nem pontos egyezést akarsz, hanem kis/nagybetû függetlent:
+            //var img = _db.Images.FirstOrDefault(x => x.Nev.ToLower() == nev_delete.ToLower());
+
+            if (img == null)
+            {
+                TempData["Error"] = $"Nem található ilyen nevû kép: {nev_delete}";
+                return RedirectToAction("Index");
+            }
+
+            // Fájl törlés a wwwroot alól
             if (!string.IsNullOrEmpty(img.FilePath))
             {
                 var physicalPath = Path.Combine(
                     _env.WebRootPath,
-                    img.FilePath.TrimStart('/')
+                    img.FilePath.TrimStart('/', '\\')
                 );
 
                 if (System.IO.File.Exists(physicalPath))
                     System.IO.File.Delete(physicalPath);
             }
 
+            // DB rekord törlés
             _db.Images.Remove(img);
             _db.SaveChanges();
 
-            return RedirectToAction("Index");
+            TempData["Success"] = $"Sikeres törlés: {img.Nev}";
+            return RedirectToAction("ImageUpdate");
         }
 
         public IActionResult ImageUpdate()
