@@ -1,9 +1,32 @@
 ﻿<h2>Kép feltöltése</h2>
 
 <form asp-action="Upload" method="post" enctype="multipart/form-data">
-    <input type="text" name="nev" placeholder="Kép neve" />
+    <input type="text" name="nev" placeholder="Kép neve" id="neve" />
     <br /><br />
     <input type="file" name="file" />
     <br /><br />
     <button type="submit">Feltöltés</button>
 </form>
+
+<hr />
+
+<h2>Kép törlése név alapján</h2>
+
+<form asp-action="DeleteByName" method="post">
+    @Html.AntiForgeryToken()
+    <input type="text" name="nev_delete" placeholder="Törlendő kép neve" id="torolneve" />
+    <button type="submit">Törlés</button>
+</form>
+
+@if (TempData["Success"] != null)
+{
+    <div style="margin-top:10px; padding:10px; background:#d4edda;">
+        @TempData["Success"]
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div style="margin-top:10px; padding:10px; background:#f8d7da;">
+        @TempData["Error"]
+    </div>
+}
