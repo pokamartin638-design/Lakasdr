@@ -119,12 +119,12 @@ namespace Lakasdr.Controllers
 
             return RedirectToAction("Index");
         }
-    
-        //--------------------------------------------------------------------------------------------------------
+
         public IActionResult ImageUpdate()
         {
             return View();
         }
+       
 //--------------------------------------------------------------------------------------------------------
         public IActionResult WorkersUpdate()
         {
@@ -234,8 +234,30 @@ namespace Lakasdr.Controllers
                 "munkalista.csv"  // fájl neve
                 );
         }
+        //--------------------------------------------------------------------------------------------------------
+        public IActionResult Gallery()
+        {
+            var uploadsPath = Path.Combine(_env.WebRootPath, "uploads");
 
-//--------------------------------------------------------------------------------------------------------
+            if (!Directory.Exists(uploadsPath))
+                Directory.CreateDirectory(uploadsPath);
+
+            var allowedExt = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+
+            var images = Directory.EnumerateFiles(uploadsPath)
+                .Where(f => allowedExt.Contains(Path.GetExtension(f)))
+                .Select(f => "/uploads/" + Path.GetFileName(f))  // URL a wwwroot-on belül
+                .OrderByDescending(url => System.IO.File.GetLastWriteTime(
+                    Path.Combine(uploadsPath, Path.GetFileName(url))
+                ))
+                .ToList();
+
+            return View(images);
+        }
+
+
+        //--------------------------------------------------------------------------------------------------------
         public IActionResult Privacy()
         {
             return View();
