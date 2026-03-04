@@ -235,6 +235,20 @@ namespace Lakasdr.Controllers
                 );
         }
 
+
+        public IActionResult Ertekeles(int ertek,string leiras)
+        {
+            var rating = new Ertekeles
+            {
+                Ertek = ertek,
+                Desc = leiras,
+                Ideje = DateTime.Now
+            };
+
+
+            return View();
+        }
+
 //--------------------------------------------------------------------------------------------------------
         public IActionResult Privacy()
         {
