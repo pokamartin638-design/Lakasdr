@@ -2,13 +2,23 @@
 
 <p>Értékelje cégünket, írjon véleményt, köszönjük!</p>
 
-<select name="ertek">
-    <option value="1">1 ⭐</option>
-    <option value="2">2 ⭐</option>
-    <option value="3">3 ⭐</option>
-    <option value="4">4 ⭐</option>
-    <option value="5">5 ⭐</option>
-</select>
+<form method="post">
+   
+    <img src="/rating/feketecsillag.jpg" id="1cs" onclick="Ertekel(1)" class="fekacsillag" />
+    <img src="/rating/feketecsillag.jpg" id="2cs" onclick="Ertekel(2)" class="fekacsillag" />
+    <img src="/rating/feketecsillag.jpg" id="3cs" onclick="Ertekel(3)" class="fekacsillag" />
+    <img src="/rating/feketecsillag.jpg" id="4cs" onclick="Ertekel(4)" class="fekacsillag" />
+    <img src="/rating/feketecsillag.jpg" id="5cs" onclick="Ertekel(5)" class="fekacsillag" />
 
 
-<textarea name="leiras"></textarea>
+    <br />
+
+<textarea name="leiras" rows="5" cols="60" placeholder="Ide írja véleményét! "></textarea>
+</form>
+
+<script>
+    function Ertekel(p)
+    {
+        
+    }
+</script>
