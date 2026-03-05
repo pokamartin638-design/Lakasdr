@@ -70,6 +70,7 @@ namespace Lakasdr.Controllers
         {
             return View();
         }
+        
 
         // UPLOAD POST
         [HttpPost]
@@ -106,6 +107,7 @@ namespace Lakasdr.Controllers
 
             _db.Images.Add(image);
             _db.SaveChanges();
+            
 
             return View("ImageUpdate");
         }
@@ -131,7 +133,7 @@ namespace Lakasdr.Controllers
             if (img == null)
             {
                 TempData["Error"] = $"Nem található ilyen nevû kép: {nev_delete}";
-                return RedirectToAction("Index");
+                return RedirectToAction("ImageUpdate");
             }
 
             // Fájl törlés a wwwroot alól
@@ -272,6 +274,7 @@ namespace Lakasdr.Controllers
         public IActionResult Gallery()
         {
             var uploadsPath = Path.Combine(_env.WebRootPath, "uploads");
+            var image = _db.Images.ToList(); // List<Image>
 
             if (!Directory.Exists(uploadsPath))
                 Directory.CreateDirectory(uploadsPath);
@@ -286,6 +289,8 @@ namespace Lakasdr.Controllers
                     Path.Combine(uploadsPath, Path.GetFileName(url))
                 ))
                 .ToList();
+            
+            return View(image);
 
             return View(images);
         }
