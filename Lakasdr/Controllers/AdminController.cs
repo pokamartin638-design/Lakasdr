@@ -47,12 +47,37 @@ namespace Lakasdr.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Index");
         }
-        [HttpPost]
-        public IActionResult WorkersUpdate(Workers munkas)
+        public IActionResult WorkersUpdate()
         {
+            var munkatarsak = _db.Workers.ToList();
+            return View(munkatarsak);
+        }
+        [HttpGet]
+        public IActionResult WorkersSzerkesztes(int id)
+        {
+            var workers = _db.Workers.FirstOrDefault(x => x.Id == id);
+            
+            if(workers == null)
+            {
+                return NotFound();
+            }
+
+
+            return View(workers);
+        }
+        [HttpPost]
+        public IActionResult WorkersSzerkesztes(Workers munkas, int? id)
+        {
+
             _db.Add(munkas);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        public IActionResult NewWorkers()
+        {
+            return View();
+        }
+
     }
 }
