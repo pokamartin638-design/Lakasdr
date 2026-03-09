@@ -181,7 +181,7 @@ namespace Lakasdr.Migrations
                             Id = 3,
                             Exp = 5,
                             Name = "Nagy Milán",
-                            WorkId = 6
+                            WorkId = 4
                         },
                         new
                         {

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lakasdr.Migrations
 {
     [DbContext(typeof(WorkDbContext))]
-    [Migration("20260304215855_torlendo2")]
-    partial class torlendo2
+    [Migration("20260309112425_uj")]
+    partial class uj
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -184,7 +184,7 @@ namespace Lakasdr.Migrations
                             Id = 3,
                             Exp = 5,
                             Name = "Nagy Milán",
-                            WorkId = 6
+                            WorkId = 4
                         },
                         new
                         {

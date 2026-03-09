@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lakasdr.Migrations
 {
     [DbContext(typeof(WorkDbContext))]
-    [Migration("20260226100351_AddFilePathToImage")]
-    partial class AddFilePathToImage
+    [Migration("20260309112531_uj2")]
+    partial class uj2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,29 @@ namespace Lakasdr.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Lakasdr.Models.Ertekeles", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Desc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Ertek")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Ideje")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ratings");
+                });
 
             modelBuilder.Entity("Lakasdr.Models.Image", b =>
                 {
@@ -68,6 +91,32 @@ namespace Lakasdr.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Jobs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "A fürdőszoba felújítása során modern burkolatok, új szaniterek és energiatakarékos világítás került beépítésre, így a helyiség letisztult és időtálló megjelenést kapott.",
+                            Name = "Fürdőszoba felújítás"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "A hálószoba átalakítása friss falfestéssel, meleg hatású padlóburkolattal és egyedi beépített szekrénnyel történt, amely nyugodt, harmonikus légkört teremt.",
+                            Name = "Hálószoba felújítás"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "A konyha felújítása során korszerű konyhabútor, praktikus tárolási megoldások és modern gépek kerültek beépítésre, hogy a főzés kényelmesebb és hatékonyabb legyen.",
+                            Name = "Konyha felújítás"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "A kocsi bejáró térkövezése strapabíró, esztétikus térkövekkel készült, biztosítva a tartós, stabil burkolatot és az igényes megjelenést.",
+                            Name = "Kocsi beálló térkövezés"
+                        });
                 });
 
             modelBuilder.Entity("Lakasdr.Models.Work", b =>
@@ -114,6 +163,43 @@ namespace Lakasdr.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Workers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Exp = 3,
+                            Name = "Nagy Mátyás",
+                            WorkId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Exp = 1,
+                            Name = "Kis Elek",
+                            WorkId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Exp = 5,
+                            Name = "Nagy Milán",
+                            WorkId = 4
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Exp = 7,
+                            Name = "Tamás András",
+                            WorkId = 3
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Exp = 2,
+                            Name = "Póka Andrea",
+                            WorkId = 1
+                        });
                 });
 #pragma warning restore 612, 618
         }

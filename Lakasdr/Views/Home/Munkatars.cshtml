@@ -9,12 +9,18 @@
 
 <form method="get">
     <select name="id" onchange="this.form.submit()" class="form-control">
+        <option value="">Válassz munkatársat</option>
+
         @foreach (var worker in ViewBag.Workers)
         {
-            <option value="@worker.Id">
-                @(Model != null && Model.Id == worker.Id ? "selected" : "")
-                @worker.Name
-            </option>
+            if (Model != null && Model.Id == worker.Id)
+            {
+                <option value="@worker.Id" selected>@worker.Name</option>
+            }
+            else
+            {
+                <option value="@worker.Id">@worker.Name</option>
+            }
         }
     </select>
 </form>
@@ -32,7 +38,7 @@
     <tbody>
         @if (Model != null)
         {
-                {
+                
                 <tr>
                     <td>@Model.Id</td>
                     <td>@Model.Name</td>
@@ -42,7 +48,7 @@
                     </td>
                     <td>@Model.Exp</td>
                 </tr>
-            }
+            
         }
     </tbody>
 </table>

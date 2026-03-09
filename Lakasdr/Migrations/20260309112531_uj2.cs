@@ -5,7 +5,7 @@
 namespace Lakasdr.Migrations
 {
     /// <inheritdoc />
-    public partial class munkatarsak : Migration
+    public partial class uj2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
