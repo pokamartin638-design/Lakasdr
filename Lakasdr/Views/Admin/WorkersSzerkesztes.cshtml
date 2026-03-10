@@ -1,6 +1,6 @@
 ﻿@model Lakasdr.Models.Workers
 
-<form asp-action="WorkersUpdate" method="post">
+<form asp-action="WorkersSzerkesztes" method="post">
     <div class="form-group">
         <label asp-for="Id">Azonosító</label>
         <input asp-for="Id" class="form-control"/>
@@ -26,5 +26,5 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Mentés</button>
-    <a asp-action="Index" class="btn btn-secondary">Mégse</a>
+    <a asp-action="WorkersUpdate" class="btn btn-secondary">Mégse</a>
 </form>
