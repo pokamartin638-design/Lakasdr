@@ -8,5 +8,10 @@
 
         public string Desc { get; set; }
 
+        List<Ertekeles> Ertekelesek = new List<Ertekeles>(); // Db-be berakni majd
+
     }
+
+    
+
 }
