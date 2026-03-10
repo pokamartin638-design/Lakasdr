@@ -4,24 +4,47 @@
 
 <form method="post"> 
 
-    Adja meg E-mail címét, hogy véleményt írhasson! <input type="email" id="emailbeker" />  @*  email check, ha mar van az emaillel, akk modositas, ha nincs mehet a listaba *@
-    <input type="radio" name="anonim" />Ne jelenjen meg az E-mail címem
+    Adja meg E-mail címét, hogy véleményt írhasson! <input type="email" id="emailbeker" name="email"/>  @*  email check, ha mar van az emaillel, akk modositas, ha nincs mehet a listaba *@
+    <input type="radio" name="anonim" />   Ne jelenjen meg az E-mail címem
+    <br />
+    <input type="hidden" name="pont" id="pont" />
    
-    <img src="/rating/feketecsillag.jpg" id="1cs" onclick="Ertekel(1)" class="fekacsillag" style="width:80px"/>
-    <img src="/rating/feketecsillag.jpg" id="2cs" onclick="Ertekel(2)" class="fekacsillag" style="width:80px" />
-    <img src="/rating/feketecsillag.jpg" id="3cs" onclick="Ertekel(3)" class="fekacsillag" style="width:80px" />
-    <img src="/rating/feketecsillag.jpg" id="4cs" onclick="Ertekel(4)" class="fekacsillag" style="width:80px" />
-    <img src="/rating/feketecsillag.jpg" id="5cs" onclick="Ertekel(5)" class="fekacsillag" style="width:80px" />
+    <img src="/rating/feketecsillag.png" id="1cs" onclick="Ertekel(1)" class="fekacsillag" style="width:80px"/>
+    <img src="/rating/feketecsillag.png" id="2cs" onclick="Ertekel(2)" class="fekacsillag" style="width:80px" />
+    <img src="/rating/feketecsillag.png" id="3cs" onclick="Ertekel(3)" class="fekacsillag" style="width:80px" />
+    <img src="/rating/feketecsillag.png" id="4cs" onclick="Ertekel(4)" class="fekacsillag" style="width:80px" />
+    <img src="/rating/feketecsillag.png" id="5cs" onclick="Ertekel(5)" class="fekacsillag" style="width:80px" />
 
 
     <br />
 
 <textarea name="leiras" rows="5" cols="60" placeholder="Ide írja véleményét! "></textarea>
+<br />
+<input type="submit" asp-action="Ertekel" class="btn btn-light"/>
 </form>
+
+
+<h3>@ViewBag.Atlag</h3><img src="/rating/sargacsillag.png" style="width:80px" />
 
 <script>
     function Ertekel(p)
     {
+        let pont = document.getElementById("pont").value=p;
         
+    
+        for (let i = 1; i <= 5; i++)
+        {
+            let csillag = document.getElementById(i + "cs");
+
+            if (i <= p)
+            {
+                csillag.src = "/rating/sargacsillag.png";
+            }
+            else
+            {
+                csillag.src = "/rating/feketecsillag.png";
+            }
+        }
+    
     }
 </script>

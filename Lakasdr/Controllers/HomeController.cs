@@ -251,7 +251,8 @@ namespace Lakasdr.Controllers
 
             var szovegBuilder = new StringBuilder();
 
-            szovegBuilder.AppendLine("este kiverem :)");
+            szovegBuilder.AppendLine("A lista tartalma: ");
+            szovegBuilder.AppendLine(" ");
 
             foreach (var item in listaelem)
             {
@@ -292,17 +293,31 @@ namespace Lakasdr.Controllers
         }
 
 
-        public IActionResult Ertekeles(int ertek,string leiras)
+        public IActionResult Ertekeles()
         {
-            var rating = new Ertekeles
-            {
-                Ertek = ertek,
-                Desc = leiras,
-                Ideje = DateTime.Now
-            };
+            ViewBag.Atlag = _db.Ratings.Average(x => x.Ertek);
 
-
+        
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Ertekel(int pont, string leiras, string email)
+        {
+            if(pont==null || leiras== null|| email==null)
+            {
+                return BadRequest("Hiányzó adatok");
+            }
+            Ertekeles e = new Ertekeles
+            {
+                Ertek = pont,
+                Desc = leiras,
+                Email = email
+            };
+            _db.Ratings.Add(e);
+
+
+            return RedirectToAction("Ertekeles");
         }
 
 //--------------------------------------------------------------------------------------------------------
