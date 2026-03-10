@@ -47,6 +47,7 @@ namespace Lakasdr.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Index");
         }
+        //-------------------------------------------------------------
         public IActionResult WorkersUpdate()
         {
             var munkatarsak = _db.Workers.ToList();
@@ -66,14 +67,14 @@ namespace Lakasdr.Controllers
             return View(workers);
         }
         [HttpPost]
-        public IActionResult WorkersSzerkesztes(Workers munkas, int? id)
+        public IActionResult WorkersSzerkesztes(Workers munkas)
         {
 
-            _db.Add(munkas);
+            _db.Workers.Update(munkas);
             _db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("WorkersUpdate");
         }
-        [HttpPost]
+
         public IActionResult NewWorkers()
         {
             return View();
