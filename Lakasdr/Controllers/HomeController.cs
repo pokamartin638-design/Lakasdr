@@ -301,6 +301,7 @@ namespace Lakasdr.Controllers
             return View();
         }
 
+        public int osszPont = 0;
         [HttpPost]
         public IActionResult Ertekel(int pont, string leiras, string email)
         {
@@ -315,6 +316,8 @@ namespace Lakasdr.Controllers
                 Email = email
             };
             _db.Ratings.Add(e);
+            _db.SaveChanges();
+            osszPont += pont;
 
 
             return RedirectToAction("Ertekeles");

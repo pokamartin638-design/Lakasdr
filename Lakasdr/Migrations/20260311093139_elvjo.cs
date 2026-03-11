@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Lakasdr.Migrations
 {
     /// <inheritdoc />
-    public partial class uj : Migration
+    public partial class elvjo : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -50,7 +50,8 @@ namespace Lakasdr.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Ertek = table.Column<int>(type: "int", nullable: false),
                     Ideje = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Desc = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Desc = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
