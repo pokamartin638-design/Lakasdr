@@ -295,13 +295,14 @@ namespace Lakasdr.Controllers
 
         public IActionResult Ertekeles()
         {
-            ViewBag.Atlag = _db.Ratings.Average(x => x.Ertek);
+            ViewBag.Atlag = _db.Ratings.Any() 
+    ? _db.Ratings.Average(x => x.Ertek)
+    : 0;
 
-        
+
             return View();
         }
 
-        public int osszPont = 0;
         [HttpPost]
         public IActionResult Ertekel(int pont, string leiras, string email)
         {
@@ -317,7 +318,7 @@ namespace Lakasdr.Controllers
             };
             _db.Ratings.Add(e);
             _db.SaveChanges();
-            osszPont += pont;
+          
 
 
             return RedirectToAction("Ertekeles");

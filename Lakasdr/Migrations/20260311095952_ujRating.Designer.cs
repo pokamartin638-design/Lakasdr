@@ -4,6 +4,7 @@ using Lakasdr.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lakasdr.Migrations
 {
     [DbContext(typeof(WorkDbContext))]
-    partial class WorkDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260311095952_ujRating")]
+    partial class ujRating
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,7 +58,7 @@ namespace Lakasdr.Migrations
                             Desc = "fasza",
                             Email = "toth.mark0603@gmail.com",
                             Ertek = 4,
-                            Ideje = new DateTime(2026, 3, 11, 11, 19, 2, 378, DateTimeKind.Local).AddTicks(5420)
+                            Ideje = new DateTime(2026, 3, 11, 10, 59, 52, 373, DateTimeKind.Local).AddTicks(9789)
                         });
                 });
 

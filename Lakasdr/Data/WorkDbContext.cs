@@ -54,8 +54,11 @@ namespace Lakasdr.Data
                      Name = "Kocsi beálló térkövezés",
                      Description = "A kocsi bejáró térkövezése strapabíró, esztétikus " +
                  "térkövekkel készült, biztosítva a tartós, stabil burkolatot és az igényes megjelenést."
+
                  }
                  );
+
+            modelBuilder.Entity<Ertekeles>().HasData(new Ertekeles { Id = 1, Ertek = 4, Desc = "fasza", Email = "toth.mark0603@gmail.com", Ideje = DateTime.Now });
 
 
         }
