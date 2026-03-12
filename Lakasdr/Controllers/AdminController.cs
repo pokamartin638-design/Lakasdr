@@ -80,5 +80,32 @@ namespace Lakasdr.Controllers
             return View();
         }
 
+        //-----------------------------------------------------------------------------
+        //velemenyek torlese
+        public IActionResult AdminRating()
+        {
+            var velemenyek = _db.Ratings
+                .OrderByDescending(x => x.Ideje)
+                .ToList();
+
+            return View(velemenyek);
+        }
+
+
+
+        [HttpPost]
+        public IActionResult RatingTorles(int id)
+        {
+            var torlendo = _db.Ratings.FirstOrDefault(x => x.Id == id);
+
+            if (torlendo != null)
+            {
+                _db.Ratings.Remove(torlendo);
+                _db.SaveChanges();
+            }
+
+            return RedirectToAction("AdminRating");
+        }
+
     }
 }

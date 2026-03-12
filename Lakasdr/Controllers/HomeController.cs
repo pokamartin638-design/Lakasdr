@@ -292,34 +292,49 @@ namespace Lakasdr.Controllers
             return View(images);
         }
 
-
+//-----------------------------------------------------------------------------------------
         public IActionResult Ertekeles()
         {
-            ViewBag.Atlag = _db.Ratings.Any() 
-    ? _db.Ratings.Average(x => x.Ertek)
-    : 0;
+            ViewBag.Atlag = _db.Ratings.Any()
+                ? _db.Ratings.Average(x => x.Ertek)
+                : 0;
 
+            var velemenyek = _db.Ratings
+                .OrderByDescending(x => x.Ideje)
+                .ToList();
 
-            return View();
+            return View(velemenyek);
         }
 
         [HttpPost]
         public IActionResult Ertekel(int pont, string leiras, string email)
         {
-            if(pont==null || leiras== null|| email==null)
+            if (pont == 0 || string.IsNullOrEmpty(leiras) || string.IsNullOrEmpty(email))
             {
                 return BadRequest("Hiányzó adatok");
             }
-            Ertekeles e = new Ertekeles
-            {
-                Ertek = pont,
-                Desc = leiras,
-                Email = email
-            };
-            _db.Ratings.Add(e);
-            _db.SaveChanges();
-          
 
+            var letezo = _db.Ratings.FirstOrDefault(x => x.Email == email);
+
+            if (letezo != null)
+            {
+                
+                letezo.Ertek = pont;
+                letezo.Desc = leiras;
+                letezo.Ideje = DateTime.Now;
+            }
+            else
+            {
+                Ertekeles e = new Ertekeles
+                {
+                    Ertek = pont,
+                    Desc = leiras,
+                    Email = email,
+                    Ideje = DateTime.Now
+                };
+                _db.Ratings.Add(e);
+            }
+            _db.SaveChanges();
 
             return RedirectToAction("Ertekeles");
         }

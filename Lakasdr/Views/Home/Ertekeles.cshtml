@@ -1,11 +1,16 @@
-﻿<h2>Értékelés</h2>
+﻿@model List<Lakasdr.Models.Ertekeles>
+
+
+@* admin funkcio otlet: az admin tud commenteket torolni *@
+
+<h2>Értékelés</h2>
 
 <p>Értékelje cégünket, írjon véleményt, köszönjük!</p>
 
 <form method="post"> 
 
-    Adja meg E-mail címét, hogy véleményt írhasson! <input type="email" id="emailbeker" name="email"/>  @*  email check, ha mar van az emaillel, akk modositas, ha nincs mehet a listaba *@
-    <input type="radio" name="anonim" />   Ne jelenjen meg az E-mail címem
+    Adja meg E-mail címét, hogy véleményt írhasson! <input type="email" id="emailbeker" name="email"/>  
+    
     <br />
     <input type="hidden" name="pont" id="pont" />
    
@@ -23,7 +28,27 @@
 </form>
 
 
+<div class="divertekel" id="divborder">
 <h3>@ViewBag.Atlag</h3><img src="/rating/sargacsillag.png" style="width:80px" />
+</div>
+
+<h3>Eddigi vélemények a cégről: </h3>
+
+@foreach(var item in Model)
+{
+    <div class="border" style="background-color:lightblue">
+        <label>@item.Email</label>
+        <p>
+            @item.Desc
+        </p>
+        <p>
+            @item.Ideje
+        </p>
+    </div>
+    <br />
+}
+
+
 
 <script>
     function Ertekel(p)

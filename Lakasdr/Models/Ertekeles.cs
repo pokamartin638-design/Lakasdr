@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public int Ertek {  get; set; }
-        public DateTime Ideje { get; set; } 
+        public DateTime Ideje { get; set; }
 
         public string Desc { get; set; }
         public string Email { get; set; }

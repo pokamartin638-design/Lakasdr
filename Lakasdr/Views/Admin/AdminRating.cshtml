@@ -1,0 +1,27 @@
+﻿@model List<Lakasdr.Models.Ertekeles>
+
+<h2>Vélemények</h2>
+
+@foreach (var item in Model)
+{
+    <div class="border p-3 mb-3" style="background-color:lightblue">
+
+        <label>@item.Email</label>
+        <p>
+            @item.Desc
+        </p>
+        <p>
+            @item.Ideje
+        </p>
+
+        <form asp-action="RatingTorles" method="post">
+
+            <input type="hidden" name="id" value="@item.Id" />
+
+            <button type="submit" class="btn btn-danger">
+                Törlés
+            </button>
+        </form>
+
+    </div>
+}
