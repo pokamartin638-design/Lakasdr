@@ -296,7 +296,7 @@ namespace Lakasdr.Controllers
         public IActionResult Ertekeles()
         {
             ViewBag.Atlag = _db.Ratings.Any()
-                ? _db.Ratings.Average(x => x.Ertek)
+                ? Math.Round(_db.Ratings.Average(x => x.Ertek), 1)
                 : 0;
 
             var velemenyek = _db.Ratings
