@@ -1,4 +1,31 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿function Ertekel(p) {
+    let pont = document.getElementById("pont").value = p;
 
-// Write your JavaScript code.
+
+    for (let i = 1; i <= 5; i++) {
+        let csillag = document.getElementById(i + "cs");
+
+        if (i <= p) {
+            csillag.src = "/rating/sargacsillag.png";
+        }
+        else {
+            csillag.src = "/rating/feketecsillag.png";
+        }
+    }
+
+}
+
+function Emailcheck() {
+    let email = document.getElementById("emailbeker").value;
+    let emailregex = new RegExp("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$");
+    let email_hiba = document.getElementById("emailhiba");
+
+    if (!emailregex.test(email)) {
+        email_hiba.innerText = "Hibás email cím!";
+        return false;
+    }
+    else {
+        email_hiba.innerText = "";
+        return true;
+    }
+}

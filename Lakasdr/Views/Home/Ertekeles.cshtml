@@ -9,8 +9,9 @@
 
 <form method="post"> 
 
-    Adja meg E-mail címét, hogy véleményt írhasson! <input type="email" id="emailbeker" name="email"/>  
-    
+    Adja meg E-mail címét, hogy véleményt írhasson! <input type="email" id="emailbeker" name="email" onblur="Emailcheck()"/>  
+    <span id="emailhiba" style="color:red"></span>
+
     <br />
     <input type="hidden" name="pont" id="pont" />
    
@@ -48,27 +49,6 @@
     <br />
 }
 
+<script src="~/js/emailcheck.js"></script>
 
 
-<script>
-    function Ertekel(p)
-    {
-        let pont = document.getElementById("pont").value=p;
-        
-    
-        for (let i = 1; i <= 5; i++)
-        {
-            let csillag = document.getElementById(i + "cs");
-
-            if (i <= p)
-            {
-                csillag.src = "/rating/sargacsillag.png";
-            }
-            else
-            {
-                csillag.src = "/rating/feketecsillag.png";
-            }
-        }
-    
-    }
-</script>
