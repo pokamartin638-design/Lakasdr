@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lakasdr.Migrations
 {
     [DbContext(typeof(WorkDbContext))]
-    [Migration("20260311093139_elvjo")]
-    partial class elvjo
+    [Migration("20260313084903_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,16 @@ namespace Lakasdr.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ratings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Desc = "fasza",
+                            Email = "toth.mark0603@gmail.com",
+                            Ertek = 4,
+                            Ideje = new DateTime(2026, 3, 13, 9, 49, 3, 550, DateTimeKind.Local).AddTicks(5597)
+                        });
                 });
 
             modelBuilder.Entity("Lakasdr.Models.Image", b =>

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Lakasdr.Migrations
 {
     /// <inheritdoc />
-    public partial class elvjo : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -98,6 +98,11 @@ namespace Lakasdr.Migrations
                     { 3, "A konyha felújítása során korszerű konyhabútor, praktikus tárolási megoldások és modern gépek kerültek beépítésre, hogy a főzés kényelmesebb és hatékonyabb legyen.", "Konyha felújítás" },
                     { 4, "A kocsi bejáró térkövezése strapabíró, esztétikus térkövekkel készült, biztosítva a tartós, stabil burkolatot és az igényes megjelenést.", "Kocsi beálló térkövezés" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Ratings",
+                columns: new[] { "Id", "Desc", "Email", "Ertek", "Ideje" },
+                values: new object[] { 1, "fasza", "toth.mark0603@gmail.com", 4, new DateTime(2026, 3, 13, 9, 49, 3, 550, DateTimeKind.Local).AddTicks(5597) });
 
             migrationBuilder.InsertData(
                 table: "Workers",

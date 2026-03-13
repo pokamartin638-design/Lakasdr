@@ -55,7 +55,7 @@ namespace Lakasdr.Migrations
                             Desc = "fasza",
                             Email = "toth.mark0603@gmail.com",
                             Ertek = 4,
-                            Ideje = new DateTime(2026, 3, 11, 11, 19, 2, 378, DateTimeKind.Local).AddTicks(5420)
+                            Ideje = new DateTime(2026, 3, 13, 9, 49, 3, 550, DateTimeKind.Local).AddTicks(5597)
                         });
                 });
 
