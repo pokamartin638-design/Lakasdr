@@ -10,10 +10,7 @@
             <td>Jelenlegi munka: </td>
             <td>Tapasztalat:</td>
             <td></td>
-        </tr>
-        <tr>
-            <td>Új dolgozó hozzáadása</td>
-        </tr>
+        </tr>   
     </thead>
     <tbody>
         @foreach(var worker in Model)
@@ -27,6 +24,9 @@
                 <td><a asp-action="WorkersSzerkesztes" asp-controller="admin" asp-route-id="@worker.Id"> szerkesztés </a></td>
             </tr>
         }
-        <tr><td><a asp-action="NewWorkers" asp-controller="admin"> hozzáadás </a></td></tr>
+        <tr>
+            <td>Új dolgozó hozzáadása</td>
+            <td><a asp-action="NewWorkers" asp-controller="admin"> hozzáadás </a></td>
+        </tr>
     </tbody>
 </table>
