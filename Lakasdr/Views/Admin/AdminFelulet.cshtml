@@ -1,48 +1,63 @@
-﻿<div class="modal fade" id="successModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-success text-white">
+﻿@{
+    ViewData["Title"] = "Admin felület";
+}
+
+<div class="modal fade" id="successModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content app-modal">
+            <div class="modal-header bg-success text-white border-0">
                 <h5 class="modal-title">Sikeres bejelentkezés</h5>
             </div>
-            <div class="modal-body">
-                Üdvözlünk az Admin felületen!
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="okButton">
-                    Rendben
-                </button>
+            <div class="modal-body">Üdvözlünk az admin felületen!</div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-primary" id="okButton">Rendben</button>
             </div>
         </div>
     </div>
 </div>
 
-<h2>Admin felület</h2>
+<section class="hero-card reveal">
+    <span class="hero-badge">Admin központ</span>
+    <h2 class="section-title">Kezelőfelület</h2>
+    <p class="section-subtitle">Innen gyorsan elérhető a fontos tartalomkezelési funkciók összessége.</p>
+</section>
 
+<section class="mt-4 card-grid">
+    <article class="admin-card reveal">
+        <h4>Hírek szerkesztése</h4>
+        <p class="text-muted-custom">Tartalmak módosítása külön admin nézetből.</p>
+        <a asp-controller="Home" asp-action="Update" class="btn btn-primary">Megnyitás</a>
+    </article>
+    <article class="admin-card reveal">
+        <h4>Képek szerkesztése</h4>
+        <p class="text-muted-custom">Galéria feltöltés és törlés modern admin panelen.</p>
+        <a asp-controller="Home" asp-action="ImageUpdate" class="btn btn-primary">Megnyitás</a>
+    </article>
+    <article class="admin-card reveal">
+        <h4>Dolgozók kezelése</h4>
+        <p class="text-muted-custom">Új kolléga rögzítése vagy meglévő adatok módosítása.</p>
+        <a asp-action="WorkersUpdate" asp-controller="Admin" class="btn btn-primary">Megnyitás</a>
+    </article>
+    <article class="admin-card reveal">
+        <h4>Vélemények törlése</h4>
+        <p class="text-muted-custom">Értékelések áttekintése és moderálása.</p>
+        <a asp-action="AdminRating" asp-controller="Admin" class="btn btn-primary">Megnyitás</a>
+    </article>
+</section>
 
-
-<a asp-action="Update">Hírek szerkesztése</a><br />
-<a asp-controller="Home" asp-action="ImageUpdate">Képek szerkesztése</a><br />
-<a asp-action="WorkersUpdate" asp-controller="Admin">Dolgozók szerkesztése</a><br />
-<a asp-action="AdminRating" asp-controller="Admin">Vélemények törlése</a>
-<br />
-
-
-
-<a asp-action="Logout">Kijelentkezés</a>
+<div class="action-row mt-4 reveal">
+    <a asp-action="Logout" class="btn btn-secondary">Kijelentkezés</a>
+</div>
 
 @if (TempData["LoginSuccess"] != null)
 {
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-
             var myModal = new bootstrap.Modal(document.getElementById('successModal'));
             myModal.show();
-
             document.getElementById("okButton").addEventListener("click", function () {
                 myModal.hide();
             });
-
         });
     </script>
 }
-

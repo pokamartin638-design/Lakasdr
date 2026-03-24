@@ -1,22 +1,35 @@
 ﻿@model List<Lakasdr.Models.Image>
+@{
+    ViewData["Title"] = "Galéria admin";
+}
 
-<h2>Galéria</h2>
+<section class="hero-card reveal">
+    <span class="hero-badge">Galéria karbantartás</span>
+    <h2 class="section-title">Feltöltött képek kezelése</h2>
+</section>
 
-<p>
-    <a asp-action="ImageUpdate">+ Új kép</a>
-</p>
+<section class="table-card mt-4 reveal">
+    <div class="action-row mb-3">
+        <a asp-action="ImageUpdate" class="btn btn-primary">+ Új kép</a>
+    </div>
 
-<table>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                <img src="@item.FilePath" width="150" />
-            </td>
-            <td>@item.Nev</td>
-            <td>
-                <a asp-action="Delete" asp-route-id="@item.Id">Törlés</a>
-            </td>
-        </tr>
-    }
-</table>
+    <table class="app-table">
+        <thead>
+            <tr>
+                <th>Kép</th>
+                <th>Név</th>
+                <th>Művelet</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><img src="@item.FilePath" alt="@item.Nev" style="width:120px;height:80px;object-fit:cover;border-radius:12px;" /></td>
+                    <td>@item.Nev</td>
+                    <td><a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Törlés</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

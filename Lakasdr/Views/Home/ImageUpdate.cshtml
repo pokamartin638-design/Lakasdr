@@ -1,32 +1,59 @@
-﻿<h2>Kép feltöltése</h2>
-
-<form asp-action="Upload" method="post" enctype="multipart/form-data">
-    <input type="text" name="nev" placeholder="Kép neve" id="neve" />
-    <br /><br />
-    <input type="file" name="file" />
-    <br /><br />
-    <button type="submit">Feltöltés</button>
-</form>
-
-<hr />
-
-<h2>Kép törlése név alapján</h2>
-
-<form asp-action="DeleteByName" method="post">
-    @Html.AntiForgeryToken()
-    <input type="text" name="nev_delete" placeholder="Törlendő kép neve" id="torolneve" />
-    <button type="submit">Törlés</button>
-</form>
-
-@if (TempData["Success"] != null)
-{
-    <div style="margin-top:10px; padding:10px; background:#d4edda;">
-        @TempData["Success"]
-    </div>
+﻿@{
+    ViewData["Title"] = "Képkezelés";
 }
-@if (TempData["Error"] != null)
-{
-    <div style="margin-top:10px; padding:10px; background:#f8d7da;">
-        @TempData["Error"]
+
+<section class="hero-card reveal">
+    <span class="hero-badge">Admin galéria</span>
+    <h2 class="section-title">Kép feltöltése és törlése</h2>
+    <p class="section-subtitle">Kezelje a referenciaképeket egy rendezett, adminbarát felületen.</p>
+</section>
+
+<div class="row g-4 mt-1">
+    <div class="col-lg-6 reveal">
+        <section class="form-card h-100">
+            <h3 class="mb-3">Új kép feltöltése</h3>
+            <form asp-action="Upload" method="post" enctype="multipart/form-data" class="inline-form">
+                <div>
+                    <label for="neve">Kép neve</label>
+                    <input type="text" name="nev" placeholder="Például: Fürdőszoba felújítás" id="neve" class="form-control" />
+                </div>
+                <div>
+                    <label for="file">Kép kiválasztása</label>
+                    <input type="file" name="file" id="file" class="form-control" />
+                </div>
+                <div class="action-row">
+                    <button type="submit" class="btn btn-primary">Feltöltés</button>
+                </div>
+            </form>
+        </section>
     </div>
-}
+
+    <div class="col-lg-6 reveal">
+        <section class="form-card h-100">
+            <h3 class="mb-3">Kép törlése név alapján</h3>
+            <form asp-action="DeleteByName" method="post" class="inline-form">
+                @Html.AntiForgeryToken()
+                <div>
+                    <label for="torolneve">Törlendő kép neve</label>
+                    <input type="text" name="nev_delete" placeholder="Adja meg a kép nevét" id="torolneve" class="form-control" />
+                </div>
+                <div class="action-row">
+                    <button type="submit" class="btn btn-danger">Törlés</button>
+                </div>
+            </form>
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="info-banner mt-4">
+                    @TempData["Success"]
+                </div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="info-banner mt-4" style="border-left: 5px solid #b32041;">
+                    @TempData["Error"]
+                </div>
+            }
+        </section>
+    </div>
+</div>

@@ -1,27 +1,26 @@
 ﻿@model List<Lakasdr.Models.Ertekeles>
-
-<h2>Vélemények</h2>
-
-@foreach (var item in Model)
-{
-    <div class="border p-3 mb-3" style="background-color:lightblue">
-
-        <label>@item.Email</label>
-        <p>
-            @item.Desc
-        </p>
-        <p>
-            @item.Ideje
-        </p>
-
-        <form asp-action="RatingTorles" method="post">
-
-            <input type="hidden" name="id" value="@item.Id" />
-
-            <button type="submit" class="btn btn-danger">
-                Törlés
-            </button>
-        </form>
-
-    </div>
+@{
+    ViewData["Title"] = "Vélemények kezelése";
 }
+
+<section class="hero-card reveal">
+    <span class="hero-badge">Admin moderáció</span>
+    <h2 class="section-title">Vélemények kezelése</h2>
+</section>
+
+<section class="mt-4 card-grid">
+    @foreach (var item in Model)
+    {
+        <article class="review-card reveal">
+            <div class="review-email">@item.Email</div>
+            <p class="my-3">@item.Desc</p>
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                <span class="status-chip">@item.Ideje</span>
+                <form asp-action="RatingTorles" method="post">
+                    <input type="hidden" name="id" value="@item.Id" />
+                    <button type="submit" class="btn btn-danger">Törlés</button>
+                </form>
+            </div>
+        </article>
+    }
+</section>

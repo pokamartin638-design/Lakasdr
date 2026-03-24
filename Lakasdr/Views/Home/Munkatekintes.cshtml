@@ -1,25 +1,31 @@
 ﻿@model Lakasdr.Models.Jobs
+@{
+    ViewData["Title"] = "Munka megtekintése";
+}
 
-<h3>Munkatársunk: </h3>
+<section class="hero-card reveal">
+    <span class="hero-badge">Projekt részletek</span>
+    <h2 class="section-title">Aktuális munka</h2>
+    <p class="section-subtitle">A kiválasztott projekthez tartozó alapinformációk.</p>
+</section>
 
-<table>
-    <thead>
-        <tr>
-            <td>Azonosító</td>
-            <td>Neve</td>
-            <td>Leírás: </td>
-        </tr>
-    </thead>
-    <tbody>
-        {
-            {
-                <tr>
-                    <td>@Model.Id</td>
-                    <td>@Model.Name</td>
-                    <td> @Model.Description</td>
-                    <td><a asp-action="Munkatars" asp-controller="Home">Vissza lépés</a></td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
+<section class="content-card mt-4 reveal">
+    <div class="info-grid">
+        <div class="info-tile">
+            <h4>Azonosító</h4>
+            <p class="mb-0">@Model.Id</p>
+        </div>
+        <div class="info-tile">
+            <h4>Munka neve</h4>
+            <p class="mb-0">@Model.Name</p>
+        </div>
+        <div class="info-tile">
+            <h4>Leírás</h4>
+            <p class="mb-0">@Model.Description</p>
+        </div>
+    </div>
+
+    <div class="action-row">
+        <a asp-action="Munkatars" asp-controller="Home" class="btn btn-primary">Vissza a munkatársakhoz</a>
+    </div>
+</section>

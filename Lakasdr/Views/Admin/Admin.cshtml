@@ -1,19 +1,32 @@
-﻿<h2>Admin Bejelentkezés</h2>
+﻿@{
+    ViewData["Title"] = "Admin bejelentkezés";
+}
 
-<form asp-action="Admin" method="post">
-    <div class="mb-3">
-        <label>Felhasználónév</label>
-        <input name="username" class="form-control" />
-    </div>
+<section class="hero-card reveal">
+    <span class="hero-badge">Védett felület</span>
+    <h2 class="section-title">Admin bejelentkezés</h2>
+    <p class="section-subtitle">Lépjen be a tartalomkezelő felületre az oldal adminisztrációjához.</p>
+</section>
 
-    <div class="mb-3">
-        <label>Jelszó</label>
-        <input name="password" type="password" class="form-control" />
-    </div>
+<section class="form-card mt-4 reveal" style="max-width: 680px; margin-inline: auto;">
+    <form asp-action="Admin" method="post" class="inline-form">
+        <div>
+            <label for="username">Felhasználónév</label>
+            <input name="username" id="username" class="form-control" />
+        </div>
 
-    <button type="submit" class="btn btn-primary">Bejelentkezés</button>
+        <div>
+            <label for="password">Jelszó</label>
+            <input name="password" id="password" type="password" class="form-control" />
+        </div>
 
-</form>
+        <div class="action-row">
+            <button type="submit" class="btn btn-primary">Bejelentkezés</button>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Vissza a főoldalra</a>
+        </div>
+    </form>
+</section>
+
 @if (ViewBag.LoginStatus != null)
 {
     <script>
@@ -22,8 +35,4 @@
             myModal.show();
         });
     </script>
-} 
-
-
-
-
+}
