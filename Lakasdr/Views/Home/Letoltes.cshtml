@@ -1,11 +1,33 @@
 ﻿@model List<string>
-
-<h2>Lista letöltése</h2>
-
-@foreach(var item in Model)
-{
-    <li>@item</li>
+@{
+    ViewData["Title"] = "Lista letöltése";
 }
-<br />
 
-<a asp-action="listazas" class="btn btn-secondary">Lista letöltése</a>
+<section class="hero-card reveal">
+    <span class="hero-badge">Kalkulációk</span>
+    <h2 class="section-title">Korábbi számítások listája</h2>
+    <p class="section-subtitle">A kalkulátorban elmentett becslések innen tölthetők le CSV formátumban.</p>
+</section>
+
+<section class="content-card mt-4 reveal">
+    @if (Model != null && Model.Any())
+    {
+        <div class="mini-grid">
+            @foreach (var item in Model)
+            {
+                <div class="feature-item">@item</div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-card">
+            <p class="mb-0 text-muted-custom">Még nincs mentett kalkuláció.</p>
+        </div>
+    }
+
+    <div class="action-row mt-4">
+        <a asp-action="listazas" class="btn btn-primary">Lista letöltése</a>
+        <a asp-action="Calculator" class="btn btn-secondary">Vissza a kalkulátorhoz</a>
+    </div>
+</section>

@@ -1,32 +1,42 @@
 ﻿@model IEnumerable<Workers>
+@{
+    ViewData["Title"] = "Dolgozók kezelése";
+}
 
-<h2>Dolgozók szerkesztése: </h2>
+<section class="hero-card reveal">
+    <span class="hero-badge">Admin</span>
+    <h2 class="section-title">Dolgozók szerkesztése</h2>
+    <p class="section-subtitle">Áttekinthető táblázat, akciógombokkal és egységes admin stílussal.</p>
+</section>
 
-<table>
-    <thead>
-        <tr>
-            <td>Azonosító:</td>
-            <td>Név:</td>
-            <td>Jelenlegi munka: </td>
-            <td>Tapasztalat:</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Új dolgozó hozzáadása</td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var worker in Model)
-        {
+<section class="table-card mt-4 reveal">
+    <div class="action-row mb-3">
+        <a asp-action="NewWorkers" asp-controller="Admin" class="btn btn-primary">Új dolgozó hozzáadása</a>
+    </div>
 
+    <table class="app-table">
+        <thead>
             <tr>
-                <td>@worker.Id</td>
-                <td>@worker.Name</td>
-                <td>@worker.WorkId</td>
-                <td>@worker.Exp</td>
-                <td><a asp-action="WorkersSzerkesztes" asp-controller="admin" asp-route-id="@worker.Id"> szerkesztés </a></td>
+                <th>Azonosító</th>
+                <th>Név</th>
+                <th>Jelenlegi munka</th>
+                <th>Tapasztalat</th>
+                <th>Művelet</th>
             </tr>
-        }
-        <tr><td><a asp-action="NewWorkers" asp-controller="admin"> hozzáadás </a></td></tr>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var worker in Model)
+            {
+                <tr>
+                    <td>@worker.Id</td>
+                    <td>@worker.Name</td>
+                    <td>@worker.WorkId</td>
+                    <td>@worker.Exp</td>
+                    <td>
+                        <a asp-action="WorkersSzerkesztes" asp-controller="Admin" asp-route-id="@worker.Id" class="btn btn-secondary">Szerkesztés</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

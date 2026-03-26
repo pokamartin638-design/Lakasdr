@@ -1,55 +1,55 @@
 ﻿@model Lakasdr.Models.Workers
-
-
 @{
     ViewData["Title"] = "Munkatársak";
+    var workers = ViewBag.Workers as List<Lakasdr.Models.Workers>;
 }
 
-<h3>Munkatársaink: </h3>
+<section class="hero-card reveal">
+    <span class="hero-badge">Csapatunk</span>
+    <h2 class="section-title">Munkatársaink</h2>
+    <p class="section-subtitle">Ismerje meg a csapat tagjait, és tekintse meg, milyen munkákon dolgoznak.</p>
+</section>
 
-<form method="get">
-    <select name="id" onchange="this.form.submit()" class="form-control">
-        <option value="">Válassz munkatársat</option>
-
-        @foreach (var worker in ViewBag.Workers)
-        {
-            if (Model != null && Model.Id == worker.Id)
+<section class="table-card mt-4 reveal">
+    <table class="app-table">
+        <thead>
+            <tr>
+                <th>Azonosító</th>
+                <th>Név</th>
+                <th>Aktuális munka</th>
+                <th>Tapasztalat</th>
+                <th>Művelet</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (workers != null)
             {
-                <option value="@worker.Id" selected>@worker.Name</option>
+                @foreach (var worker in workers)
+                {
+                    <tr>
+                        <td>@worker.Id</td>
+                        <td>@worker.Name</td>
+                        <td>@worker.WorkId</td>
+                        <td>@worker.Exp év</td>
+                        <td>
+                            <a asp-action="Munkatars" asp-controller="Home" asp-route-id="@worker.Id" class="btn btn-secondary">Részletek</a>
+                        </td>
+                    </tr>
+                }
             }
-            else
-            {
-                <option value="@worker.Id">@worker.Name</option>
-            }
-        }
-    </select>
-</form>
+        </tbody>
+    </table>
+</section>
 
-
-<table>
-    <thead>
-        <tr>
-            <td>Azonosító</td> 
-            <td>Név</td>
-            <td>Jelenlegi munka: </td>
-            <td>Korábbi munkái:</td>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null)
-        {
-                
-                <tr>
-                    <td>@Model.Id</td>
-                    <td>@Model.Name</td>
-                    <td>
-                        @Model.WorkId 
-                        <a asp-action="Munkatekintes" asp-controller="Home" asp-route-id="@Model.WorkId" >Munka megtekintése</a>
-                    </td>
-                    <td>@Model.Exp</td>
-                </tr>
-            
-        }
-    </tbody>
-</table>
-<a asp-action="Index" asp-controller="Home">Vissza</a>
+@if (Model != null)
+{
+    <section class="content-card mt-4 reveal">
+        <span class="tag">Kiválasztott munkatárs</span>
+        <h3 class="mt-3">@Model.Name</h3>
+        <p class="text-muted-custom">Tapasztalat: @Model.Exp év</p>
+        <div class="action-row">
+            <a asp-action="Munkatekintes" asp-controller="Home" asp-route-id="@Model.WorkId" class="btn btn-primary">Munka megtekintése</a>
+            <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Vissza a főoldalra</a>
+        </div>
+    </section>
+}

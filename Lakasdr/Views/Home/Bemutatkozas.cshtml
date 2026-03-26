@@ -1,35 +1,48 @@
-﻿<h2>Bemutatkozás</h2>
+﻿@{
+    ViewData["Title"] = "Bemutatkozás";
+}
 
-<h4>
-    A Lakás Doktor Kft. egy dinamikusan fejlődő,  építőipari vállalat, amely teljes körű kivitelezési és felújítási szolgáltatásokat kínál magán- és üzleti ügyfelek számára. Cégünk családi házak, társasházak és irodai ingatlanok építését, korszerűsítését és energetikai felújítását vállalja a tervezéstől a kulcsrakész átadásig.
-    Szakértő csapatunk nagy hangsúlyt fektet a minőségi alapanyagok használatára, a precíz munkavégzésre és a határidők pontos betartására. Modern technológiákkal és fenntartható megoldásokkal dolgozunk, hogy ügyfeleink számára hosszú távon értékálló ingatlanokat hozzunk létre.
-    Célunk, hogy minden projekt során megbízható partnerként, átlátható kommunikációval és személyre szabott megoldásokkal teremtsünk maradandó értéket.
-</h4>
-<br />
-<a href="/Home/Index" class="btn btn-sm btn-primary">Vissza lépés</a>
+<section class="hero-card reveal">
+    <span class="hero-badge">Bemutatkozás</span>
+    <div class="row g-4 align-items-center">
+        <div class="col-lg-8">
+            <h2 class="section-title">Építőipari partner a tervezéstől a kivitelezésig</h2>
+            <p class="section-subtitle">
+                A Lakás Doktor Hungary Kft. egy dinamikusan fejlődő, építőipari vállalat, amely teljes körű
+                kivitelezési és felújítási szolgáltatásokat kínál magán- és üzleti ügyfelek számára.
+            </p>
+        </div>
+        <div class="col-lg-4">
+            <img src="~/images/logo.png" alt="Lakás Doktor logó" class="img-fluid rounded-4 shadow-sm" />
+        </div>
+    </div>
+</section>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<section class="content-card mt-4 reveal">
+    <div class="info-grid">
+        <div class="info-tile">
+            <h4>Teljes körű szolgáltatás</h4>
+            <p class="mb-0 text-muted-custom">Családi házak, társasházak és irodai ingatlanok építése, korszerűsítése és felújítása.</p>
+        </div>
+        <div class="info-tile">
+            <h4>Minőség és pontosság</h4>
+            <p class="mb-0 text-muted-custom">Minőségi alapanyagok, precíz munkavégzés és határidők pontos betartása.</p>
+        </div>
+        <div class="info-tile">
+            <h4>Fenntartható megoldások</h4>
+            <p class="mb-0 text-muted-custom">Modern technológiák és energiahatékony szemlélet minden projektben.</p>
+        </div>
+    </div>
 
-<div id="map" style="height: 400px;"></div>
+    <div class="mt-4">
+        <p class="lead-text mb-0">
+            Célunk, hogy minden projekt során megbízható partnerként, átlátható kommunikációval és
+            személyre szabott megoldásokkal teremtsünk maradandó értéket.
+        </p>
+    </div>
 
-
-
-<script>
-    //koordinatak
-
-    var lat = 47.7820795;
-    var lng = 19.9240793;
-
-    var map = L.map('map').setView([lat, lng], 20);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap'
-    }).addTo(map);
-
-    // Pontos hely kijelolese
-    L.marker([lat, lng])
-        .addTo(map)
-        .bindPopup('Lakás Doktor Kft.')
-        .openPopup();
-</script>
+    <div class="action-row">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Vissza a főoldalra</a>
+        <a asp-controller="Home" asp-action="Gallery" class="btn btn-secondary">Munkáink megtekintése</a>
+    </div>
+</section>

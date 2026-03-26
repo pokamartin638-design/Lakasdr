@@ -79,6 +79,19 @@ namespace Lakasdr.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult NewWorkers(Workers worker)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(worker);
+            }
+
+            _db.Workers.Add(worker);
+            _db.SaveChanges();
+
+            return RedirectToAction("WorkersUpdate");
+        }
 
         //-----------------------------------------------------------------------------
         //velemenyek torlese
