@@ -49,15 +49,4 @@
     <a asp-action="Logout" class="btn btn-secondary">Kijelentkezés</a>
 </div>
 
-@if (TempData["LoginSuccess"] != null)
-{
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var myModal = new bootstrap.Modal(document.getElementById('successModal'));
-            myModal.show();
-            document.getElementById("okButton").addEventListener("click", function () {
-                myModal.hide();
-            });
-        });
-    </script>
-}
+

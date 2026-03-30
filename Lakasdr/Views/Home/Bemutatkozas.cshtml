@@ -46,3 +46,35 @@
         <a asp-controller="Home" asp-action="Gallery" class="btn btn-secondary">Munkáink megtekintése</a>
     </div>
 </section>
+
+<section class="content-card mt-4 reveal">
+    <div class="card-title"><h2>Elhelyezkedésünk</h2></div>
+    <div class="info-grid">
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+        <div id="map" style="height: 400px;"></div>
+    </div>
+</section>
+
+
+
+<script>
+    //koordinatak
+
+    var lat = 47.7820795;
+    var lng = 19.9240793;
+
+    var map = L.map('map').setView([lat, lng], 20);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+
+    // Pontos hely kijelolese
+    L.marker([lat, lng])
+        .addTo(map)
+        .bindPopup('Lakás Doktor Kft.')
+        .openPopup();
+</script>

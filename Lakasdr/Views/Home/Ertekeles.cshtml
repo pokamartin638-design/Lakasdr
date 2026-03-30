@@ -3,6 +3,7 @@
     ViewData["Title"] = "Értékelések";
 }
 
+
 <section class="hero-card reveal">
     <span class="hero-badge">Ügyfélvélemények</span>
     <h2 class="section-title">Értékelje cégünket</h2>
@@ -13,6 +14,10 @@
     <div class="col-lg-5 reveal">
         <section class="form-card h-100">
             <form method="post" class="inline-form">
+                @if (TempData["Hiba"] != null)
+                {
+                    <p style="color:red">@TempData["Hiba"]</p>
+                }
                 <div>
                     <label for="emailbeker">E-mail cím</label>
                     <input type="email" id="emailbeker" name="email" class="form-control" onblur="Emailcheck()" placeholder="pelda@email.hu" />
@@ -65,6 +70,12 @@
         {
             <article class="review-card reveal">
                 <div class="review-email">@item.Email</div>
+                <p class="my-3">
+                    @for (int i = 0; i < item.Ertek; i++)
+                    {
+                        <img src="/rating/sargacsillag.png" style="width:20px;" />
+                    }
+                </p>
                 <p class="my-3">@item.Desc</p>
                 <span class="status-chip">@item.Ideje</span>
             </article>

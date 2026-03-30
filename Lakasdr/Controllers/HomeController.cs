@@ -311,7 +311,8 @@ namespace Lakasdr.Controllers
         {
             if (pont == 0 || string.IsNullOrEmpty(leiras) || string.IsNullOrEmpty(email))
             {
-                return BadRequest("Hiányzó adatok");
+                TempData["Hiba"] = "Hiányzó adatok!";
+                return RedirectToAction("Ertekeles");
             }
 
             var letezo = _db.Ratings.FirstOrDefault(x => x.Email == email);
