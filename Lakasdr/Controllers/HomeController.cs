@@ -171,72 +171,119 @@ namespace Lakasdr.Controllers
 
 
         static List<string> calclista = new List<string>(); //calc. lista
-        string asd2 = "";
-        int ossz = 0;
+       
+   
 
         [HttpPost]
-        public IActionResult Kiszamol(int kategoria, int terulet)
+     
+        public IActionResult Kiszamol(int kategoria, int? terulet, int? munkaDb, int? vizTipus)
         {
             var kategoriak = new Dictionary<int, string>
     {
-                {1, "Szobafestés"},
-                {2, "Csempézés"},
-                {3, "Parkettázás"},
-                {4, "Tapétázás"},
-                {5, "Burkolás, vakolás"},
-                {7, "Vízvezeték javítás"}
-                };
-            var kateg = kategoriak.ContainsKey(kategoria) ? kategoriak[kategoria]
-        : "Ismeretlen munka";
+        {1, "Szobafestés"},
+        {2, "Csempézés"},
+        {3, "Parkettázás"},
+        {4, "Tapétázás"},
+        {5, "Burkolás, vakolás"},
+        {7, "Vízvezeték javítás"}
+    };
 
-            
-            int munkadij = 0;
-            
-            int anyagar = 0;
+            var kateg = kategoriak.ContainsKey(kategoria)
+                ? kategoriak[kategoria]
+                : "Ismeretlen munka";
 
+            int ossz = 0;
+            string leiras = "";
 
-
-            switch (kategoria)
+            if (kategoria == 7)
             {
-                case 1:
-                    munkadij = 3000;
-                    anyagar = 600;
-                    ossz = munkadij * terulet + anyagar * terulet;
-                    break;
+                if (munkaDb == 0 || munkaDb < 0)
+                {
+                    int alapAr = 0;
+                    string tipusNev = "";
 
-                case 2:
-                    munkadij = 6000;
-                    anyagar = 7500;
-                    ossz = munkadij * terulet + anyagar * terulet;
-                    break;
+                    switch (vizTipus)
+                    {
+                        case 1:
+                            alapAr = 5000;
+                            tipusNev = "Csap javítás";
+                            break;
+                        case 2:
+                            alapAr = 10000;
+                            tipusNev = "Csõcsere";
+                            break;
+                        case 3:
+                            alapAr = 12000;
+                            tipusNev = "Duguláselhárítás";
+                            break;
+                        default:
+                            alapAr = 5000;
+                            tipusNev = "Ismeretlen";
+                            break;
+                    }
 
-                case 3:
-                    munkadij = 4500;
-                    anyagar = 8000;
-                    ossz = munkadij * terulet + anyagar * terulet;
-                    break;
+                    int db = munkaDb ?? 1;
+                    ossz = db * alapAr;
 
-                case 4:
-                    munkadij = 5000;
-                    anyagar = 3000;
-                    ossz = munkadij * terulet + anyagar * terulet;
-                    break;
-
-                case 5:
-                    munkadij = 6000;
-                    anyagar = 4000;
-                    ossz = munkadij * terulet + anyagar * terulet;
-                    break;
-
-                case 7:
-                    munkadij = 5000;
-                    ossz = munkadij * terulet;
-
-                    break;
+                    leiras = $"{kateg} - {tipusNev} ({db} db)";
+                }
+                else
+                {
+                    ViewBag.Hiba = "Adjon meg legalább 1 darabot!";
+                    return View("Calculator");
+                }
+        
+                
             }
-            ViewBag.Osszeg = ossz;
-             asd2 = kateg+" "+terulet+"m2"+" "+ossz+" Ft";
+            else
+            {
+                if (terulet != null || terulet !< 0)
+                {
+                    int munkadij = 0;
+                    int anyagar = 0;
+                    int m2 = terulet ?? 0;
+
+                    switch (kategoria)
+                    {
+                        case 1:
+                            munkadij = 3000;
+                            anyagar = 600;
+                            break;
+                        case 2:
+                            munkadij = 6000;
+                            anyagar = 7500;
+                            break;
+                        case 3:
+                            munkadij = 4500;
+                            anyagar = 8000;
+                            break;
+                        case 4:
+                            munkadij = 5000;
+                            anyagar = 3000;
+                            break;
+                        case 5:
+                            munkadij = 6000;
+                            anyagar = 4000;
+                            break;
+                    }
+
+                    ossz = m2 * (munkadij + anyagar);
+                    leiras = $"{kateg} - {m2} m2";
+                }
+                else
+                {
+                    ViewBag.Hiba = "Adjon meg legalabb 1 négyzetmétert!";
+                    return View("Calculator");
+                }
+                   
+            }
+
+            // lista mentés
+            string asd2 = $"{leiras} - {ossz} Ft";
             calclista.Add(asd2);
+            ViewBag.Osszeg = ossz;
+         
+
             return View("Calculator");
         }
 
@@ -256,10 +303,22 @@ namespace Lakasdr.Controllers
 
             foreach (var item in listaelem)
             {
-                szovegBuilder.AppendLine(item);
+                // pl: "Vízvezeték javítás - Csap javítás (2 db) - 10000 Ft"
+                var parts = item.Split(" - ");
+
+                if (parts.Length >= 3)
+                {
+                    szovegBuilder.AppendLine($"{parts[0]};{parts[1]};{parts[2]}");
+                }
+                else
+                {
+                    szovegBuilder.AppendLine(item);
+                }
             }
 
-            var bytes = Encoding.UTF8.GetBytes(szovegBuilder.ToString());
+            var bytes = Encoding.UTF8.GetPreamble()
+            .Concat(Encoding.UTF8.GetBytes(szovegBuilder.ToString()))
+            .ToArray();
 
             return File(
                 bytes,              // fájl tartalma
