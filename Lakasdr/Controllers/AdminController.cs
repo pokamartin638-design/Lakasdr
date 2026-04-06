@@ -45,7 +45,7 @@ namespace Lakasdr.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
         //-------------------------------------------------------------
         public IActionResult WorkersUpdate()
