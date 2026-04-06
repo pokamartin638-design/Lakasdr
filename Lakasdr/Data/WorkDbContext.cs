@@ -21,16 +21,17 @@ namespace Lakasdr.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
-            
+            modelBuilder.Entity<Workers>()
+                .HasOne(w => w.Jobs)
+                .WithMany()
+                .HasForeignKey(w => w.WorkId);
         }
-
-
 
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.ConfigureWarnings(x => x.Ignore(RelationalEventId.PendingModelChangesWarning));
         }
+
 
 
     }

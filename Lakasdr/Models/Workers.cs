@@ -7,6 +7,8 @@
         public int WorkId { get; set; }
         public int Exp {  get; set; }
 
+        public Jobs Jobs { get; set; }
+
 
     }
 }

@@ -50,7 +50,9 @@ namespace Lakasdr.Controllers
         //-------------------------------------------------------------
         public IActionResult WorkersUpdate()
         {
-            var munkatarsak = _db.Workers.ToList();
+            var munkatarsak = _db.Workers
+                     .Include(w => w.Jobs)
+                     .ToList();
             return View(munkatarsak);
         }
         [HttpGet]
@@ -90,6 +92,18 @@ namespace Lakasdr.Controllers
             _db.Workers.Add(worker);
             _db.SaveChanges();
 
+            return RedirectToAction("WorkersUpdate");
+        }
+        [HttpPost]
+        public IActionResult DeleteWorkers(int id)
+        {
+            var torlendo = _db.Workers.FirstOrDefault(x =>x.Id == id);
+
+            if(torlendo != null)
+            {
+                _db.Workers.Remove(torlendo);
+                _db.SaveChanges();
+            }
             return RedirectToAction("WorkersUpdate");
         }
 
