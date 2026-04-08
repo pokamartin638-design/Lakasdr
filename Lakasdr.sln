@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36414.22 d17.14
+VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lakasdr", "Lakasdr\Lakasdr.csproj", "{D51AD7CD-F935-442B-921E-5231E6BD3519}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LakasdrUnitTest", "LakasdrUnitTest\LakasdrUnitTest.csproj", "{866BA617-E4D2-419B-AB10-CD39A56928F1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D51AD7CD-F935-442B-921E-5231E6BD3519} = {D51AD7CD-F935-442B-921E-5231E6BD3519}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +20,10 @@ Global
 		{D51AD7CD-F935-442B-921E-5231E6BD3519}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D51AD7CD-F935-442B-921E-5231E6BD3519}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D51AD7CD-F935-442B-921E-5231E6BD3519}.Release|Any CPU.Build.0 = Release|Any CPU
+		{866BA617-E4D2-419B-AB10-CD39A56928F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{866BA617-E4D2-419B-AB10-CD39A56928F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{866BA617-E4D2-419B-AB10-CD39A56928F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{866BA617-E4D2-419B-AB10-CD39A56928F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

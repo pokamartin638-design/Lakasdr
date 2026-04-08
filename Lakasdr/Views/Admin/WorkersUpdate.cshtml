@@ -30,10 +30,16 @@
                 <tr>
                     <td>@worker.Id</td>
                     <td>@worker.Name</td>
-                    <td>@worker.WorkId</td>
+                    <td>@worker.Jobs?.Name</td>
                     <td>@worker.Exp</td>
                     <td>
                         <a asp-action="WorkersSzerkesztes" asp-controller="Admin" asp-route-id="@worker.Id" class="btn btn-secondary">Szerkesztés</a>
+                    </td>
+                    <td>
+                        <form asp-action="DeleteWorkers" asp-controller="Admin" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@worker.Id" />
+                            <button type="submit" class="btn btn-danger">Törlés</button>
+                        </form>
                     </td>
                 </tr>
             }

@@ -34,7 +34,9 @@ namespace Lakasdr.Controllers
         [HttpGet]
         public IActionResult Munkatars(int? id)
         {
-            ViewBag.Workers = _db.Workers.ToList();
+            ViewBag.Workers = _db.Workers
+                .Include(w => w.Jobs)
+                .ToList();
 
             Workers azonosito = null;
 
@@ -43,7 +45,7 @@ namespace Lakasdr.Controllers
                 azonosito = _db.Workers.FirstOrDefault(w => w.Id == id);
             }
 
-            
+
             return View(azonosito);
         }
         [HttpGet]
@@ -197,7 +199,7 @@ namespace Lakasdr.Controllers
 
             if (kategoria == 7)
             {
-                if (munkaDb == 0 || munkaDb < 0 || munkaDb ==null || munkaDb > 0  )
+                if ( munkaDb > 0  )
                 {
                     int alapAr = 0;
                     string tipusNev = "";
@@ -237,7 +239,7 @@ namespace Lakasdr.Controllers
             }
             else
             {
-                if (terulet != null || terulet == 0 || terulet <0 || terulet > 0)
+                if ( terulet > 0)
                 {
                     int munkadij = 0;
                     int anyagar = 0;

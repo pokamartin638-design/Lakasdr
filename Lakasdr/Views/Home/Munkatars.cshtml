@@ -29,7 +29,7 @@
                     <tr>
                         <td>@worker.Id</td>
                         <td>@worker.Name</td>
-                        <td>@worker.WorkId</td>
+                        <td>@worker.Jobs?.Name</td>
                         <td>@worker.Exp év</td>
                         <td>
                             <a asp-action="Munkatars" asp-controller="Home" asp-route-id="@worker.Id" class="btn btn-secondary">Részletek</a>
