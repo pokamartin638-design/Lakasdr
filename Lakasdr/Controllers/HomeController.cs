@@ -34,7 +34,9 @@ namespace Lakasdr.Controllers
         [HttpGet]
         public IActionResult Munkatars(int? id)
         {
-            ViewBag.Workers = _db.Workers.ToList();
+            ViewBag.Workers = _db.Workers
+                .Include(w => w.Jobs)
+                .ToList();
 
             Workers azonosito = null;
 
@@ -43,7 +45,7 @@ namespace Lakasdr.Controllers
                 azonosito = _db.Workers.FirstOrDefault(w => w.Id == id);
             }
 
-            
+
             return View(azonosito);
         }
         [HttpGet]
