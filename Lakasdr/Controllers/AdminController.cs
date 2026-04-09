@@ -76,7 +76,7 @@ namespace Lakasdr.Controllers
             _db.SaveChanges();
             return RedirectToAction("WorkersUpdate");
         }
-
+        [HttpGet]
         public IActionResult NewWorkers()
         {
             return View();
@@ -89,11 +89,20 @@ namespace Lakasdr.Controllers
                 return View(worker);
             }
 
+            var dolgozo = new Workers
+            {
+                Id = worker.Id,
+                Name = worker.Name,
+                WorkId = worker.Id,
+                Exp = worker.Exp
+            };
+
             _db.Workers.Add(worker);
             _db.SaveChanges();
 
             return RedirectToAction("WorkersUpdate");
         }
+
         [HttpPost]
         public IActionResult DeleteWorkers(int id)
         {
@@ -105,6 +114,64 @@ namespace Lakasdr.Controllers
                 _db.SaveChanges();
             }
             return RedirectToAction("WorkersUpdate");
+        }
+
+        public IActionResult Jobs()
+        {
+            var munkak = _db.Jobs.ToList();
+            return View(munkak);
+        }
+        [HttpGet]
+        public IActionResult JobsSzerkesztes(int id)
+        {
+            var job = _db.Jobs.FirstOrDefault(x => x.Id == id);
+
+            if (job == null)
+            {
+                return NotFound();
+            }
+            return View(job);
+        }
+        [HttpPost]
+        public IActionResult JobsSzerkesztes(Jobs job)
+        {
+            _db.Jobs.Update(job);
+            _db.SaveChanges();
+            return RedirectToAction("Jobs");
+        }
+        public IActionResult NewJobs()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult NewJobs(Jobs job)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(job);
+            }
+            var melo = new Jobs
+            {
+                Id = job.Id,
+                Name = job.Name,
+                Description = job.Description
+            };
+            _db.Jobs.Add(melo);
+            _db.SaveChanges();
+
+            return RedirectToAction("Jobs");
+        }
+        [HttpPost]
+        public IActionResult DeleteJobs(int id)
+        {
+            var torlendo = _db.Jobs.FirstOrDefault(x => x.Id == id);
+
+            if (torlendo != null)
+            {
+                _db.Jobs.Remove(torlendo);
+                _db.SaveChanges();
+            }
+            return RedirectToAction("Jobs");
         }
 
         //-----------------------------------------------------------------------------

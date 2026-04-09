@@ -8,7 +8,7 @@ namespace Lakasdr.Data
         {
             if (!seed.Ratings.Any())
             {
-                seed.Ratings.AddRange(new Ertekeles { Id = 1, Ertek = 4, Desc = "fasza", Email = "toth.mark0603@gmail.com", Ideje = DateTime.Now });
+                seed.Ratings.AddRange(new Ertekeles { Id = 1, Ertek = 4, Desc = "nagyon jó!", Email = "toth.mark0603@gmail.com", Ideje = DateTime.Now });
             }
 
 

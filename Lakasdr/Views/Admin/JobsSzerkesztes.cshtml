@@ -1,0 +1,31 @@
+﻿@model Lakasdr.Models.Jobs
+@{
+    ViewData["Title"] = "Munka szerkesztése";
+}
+
+<section class="hero-card reveal">
+    <span class="hero-badge">Admin</span>
+    <h2 class="section-title">Munka szerkesztése</h2>
+</section>
+
+<section class="form-card mt-4 reveal">
+    <form asp-action="JobsSzerkesztes" method="post" class="inline-form">
+
+        <div>
+            <label asp-for="Name">Név</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="Description">Leírás</label>
+            <input asp-for="Description" class="form-control" type="text" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="action-row">
+            <button type="submit" class="btn btn-primary">Mentés</button>
+            <a asp-action="Jobs" class="btn btn-secondary">Mégse</a>
+        </div>
+    </form>
+</section>

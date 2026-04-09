@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Jobs>
+@{
+    ViewData["Title"] = "Munkák kezelése";
+}
+
+<section class="hero-card reveal">
+    <span class="hero-badge">Admin</span>
+    <h2 class="section-title">Munkák szerkesztése</h2>
+    <p class="section-subtitle">Áttekinthető táblázat, akciógombokkal és egységes admin stílussal.</p>
+</section>
+
+<section class="table-card mt-4 reveal">
+    <div class="action-row mb-3">
+        <a asp-action="NewJobs" asp-controller="Admin" class="btn btn-primary">Új munka hozzáadása</a>
+    </div>
+
+    <table class="app-table">
+        <thead>
+            <tr>
+                <th>Azonosító</th>
+                <th>Elnevezés</th>
+                <th>Leírás</th>
+                <th>Művelet</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var work in Model)
+            {
+                <tr>
+                    <td>@work.Id</td>
+                    <td>@work.Name</td>
+                    <td>@work.Description</td>
+                    <td>
+                        <a asp-action="JobsSzerkesztes" asp-controller="Admin" asp-route-id="@work.Id" class="btn btn-secondary">Szerkesztés</a>
+                    </td>
+                    <td>
+                        <form asp-action="DeleteJobs" asp-controller="Admin" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@work.Id" />
+                            <button type="submit" class="btn btn-danger">Törlés</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

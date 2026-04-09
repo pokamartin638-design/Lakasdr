@@ -9,7 +9,7 @@
 </section>
 
 <section class="form-card mt-4 reveal">
-    <form asp-action="NewWorkers" method="post" class="inline-form">
+    <form asp-action="NewWorkers" asp-controller="Admin" method="post" class="inline-form">
         <div>
             <label asp-for="Name">Név</label>
             <input asp-for="Name" class="form-control" />
@@ -21,10 +21,9 @@
             <input asp-for="WorkId" class="form-control" type="number" />
             <span asp-validation-for="WorkId" class="text-danger"></span>
         </div>
-
         <div>
             <label asp-for="Exp">Tapasztalat</label>
-            <textarea asp-for="Exp" class="form-control"></textarea>
+            <input asp-for="Exp" class="form-control" type="number"/>
             <span asp-validation-for="Exp" class="text-danger"></span>
         </div>
 

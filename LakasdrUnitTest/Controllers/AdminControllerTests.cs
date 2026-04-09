@@ -12,13 +12,13 @@ namespace Lakasdr.Tests.Controllers;
 public class AdminControllerTests
 {
     [Fact]
-    public void Admin_ValidCredentials_RedirectsToAdminFelulet()
+    public void Sikeres_Belepes()
     {
-        using var db = TestDbFactory.CreateContext(nameof(Admin_ValidCredentials_RedirectsToAdminFelulet));
+        using var db = TestDbFactory.CreateContext(nameof(Sikeres_Belepes));
         var env = new FakeWebHostEnvironment();
         var controller = new AdminController(db, env);
         controller.TempData = new TempDataDictionary(
-            new DefaultHttpContext(),
+            new DefaultHttpContext(),   
             Mock.Of<ITempDataProvider>());
 
         var result = controller.Admin("admin", "1234");
@@ -29,9 +29,9 @@ public class AdminControllerTests
     }
 
     [Fact]
-    public void Admin_InvalidCredentials_ReturnsView()
+    public void Sikertelen_Belepes()
     {
-        using var db = TestDbFactory.CreateContext(nameof(Admin_InvalidCredentials_ReturnsView));
+        using var db = TestDbFactory.CreateContext(nameof(Sikertelen_Belepes));
         var env = new FakeWebHostEnvironment();
         var controller = new AdminController(db, env);
 
@@ -42,9 +42,9 @@ public class AdminControllerTests
     }
 
     [Fact]
-    public void WorkersSzerkesztes_GetMissingWorker_ReturnsNotFound()
+    public void WorkersSzerkesztes_nemeletezo()
     {
-        using var db = TestDbFactory.CreateContext(nameof(WorkersSzerkesztes_GetMissingWorker_ReturnsNotFound));
+        using var db = TestDbFactory.CreateContext(nameof(WorkersSzerkesztes_nemeletezo));
         var env = new FakeWebHostEnvironment();
         var controller = new AdminController(db, env);
 
@@ -54,9 +54,9 @@ public class AdminControllerTests
     }
 
     [Fact]
-    public void NewWorkers_ValidWorker_SavesWorkerAndRedirects()
+    public void NewWorkers_sikeresletrehozas()
     {
-        using var db = TestDbFactory.CreateContext(nameof(NewWorkers_ValidWorker_SavesWorkerAndRedirects));
+        using var db = TestDbFactory.CreateContext(nameof(NewWorkers_sikeresletrehozas));
         var env = new FakeWebHostEnvironment();
         var controller = new AdminController(db, env);
 
