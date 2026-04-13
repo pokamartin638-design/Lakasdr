@@ -31,23 +31,27 @@ namespace Lakasdr.Controllers
         {
             return View();
         }
+
         [HttpGet]
         public IActionResult Munkatars(int? id)
         {
             ViewBag.Workers = _db.Workers
                 .Include(w => w.Jobs)
+                .OrderBy(w => w.Name)
                 .ToList();
 
             Workers azonosito = null;
 
             if (id != null)
             {
-                azonosito = _db.Workers.FirstOrDefault(w => w.Id == id);
+                azonosito = _db.Workers
+                    .Include(w => w.Jobs)
+                    .FirstOrDefault(w => w.Id == id);
             }
-
 
             return View(azonosito);
         }
+
         [HttpGet]
         public IActionResult Munkatekintes(int id)
         {
@@ -122,15 +126,13 @@ namespace Lakasdr.Controllers
             if (string.IsNullOrWhiteSpace(nev_delete))
             {
                 TempData["Error"] = "Add meg a törlendõ kép nevét!";
-                return RedirectToAction("Index"); // vagy ahova vissza akarsz menni
+                return RedirectToAction("Index"); 
             }
 
-            // Itt feltételezem, hogy az Image táblában van egy Név mezõd.
-            // (pl. Name, Nev, Title stb.) -> állítsd arra, ami nálad van!
+           
             var img = _db.Images.FirstOrDefault(x => x.Nev == nev_delete);
 
-            // Ha nem pontos egyezést akarsz, hanem kis/nagybetû függetlent:
-            //var img = _db.Images.FirstOrDefault(x => x.Nev.ToLower() == nev_delete.ToLower());
+           
 
             if (img == null)
             {
@@ -138,7 +140,7 @@ namespace Lakasdr.Controllers
                 return RedirectToAction("ImageUpdate");
             }
 
-            // Fájl törlés a wwwroot alól
+          
             if (!string.IsNullOrEmpty(img.FilePath))
             {
                 var physicalPath = Path.Combine(
@@ -150,7 +152,7 @@ namespace Lakasdr.Controllers
                     System.IO.File.Delete(physicalPath);
             }
 
-            // DB rekord törlés
+         
             _db.Images.Remove(img);
             _db.SaveChanges();
 
@@ -350,7 +352,7 @@ namespace Lakasdr.Controllers
             
             return View(image);
 
-            return View(images);
+            
         }
 
 //-----------------------------------------------------------------------------------------

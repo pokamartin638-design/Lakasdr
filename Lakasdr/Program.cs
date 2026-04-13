@@ -22,7 +22,6 @@ namespace Lakasdr
             using (var scope = app.Services.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<WorkDbContext>();
-                db.Database.EnsureDeleted();
                 db.Database.Migrate();
 
                 DbSeed.Seed(db);

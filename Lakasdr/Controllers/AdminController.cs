@@ -58,27 +58,50 @@ namespace Lakasdr.Controllers
         [HttpGet]
         public IActionResult WorkersSzerkesztes(int id)
         {
-            var workers = _db.Workers.FirstOrDefault(x => x.Id == id);
-            
-            if(workers == null)
+            var worker = _db.Workers.Find(id);
+            if (worker == null)
             {
                 return NotFound();
             }
 
-
-            return View(workers);
+            ViewBag.Jobs = _db.Jobs.ToList();
+            return View(worker);
         }
         [HttpPost]
-        public IActionResult WorkersSzerkesztes(Workers munkas)
+        public IActionResult WorkersSzerkesztes(Workers worker)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Jobs = _db.Jobs.ToList();
+                return View(worker);
+            }
 
-            _db.Workers.Update(munkas);
+            var letezoWorker = _db.Workers.FirstOrDefault(w => w.Id == worker.Id);
+            if (letezoWorker == null)
+            {
+                return NotFound();
+            }
+
+            var letezoMunka = _db.Jobs.Any(j => j.Id == worker.WorkId);
+            if (!letezoMunka)
+            {
+                ModelState.AddModelError("WorkId", "A kiválasztott munka nem létezik.");
+                ViewBag.Jobs = _db.Jobs.ToList();
+                return View(worker);
+            }
+
+            letezoWorker.Name = worker.Name;
+            letezoWorker.WorkId = worker.WorkId;
+            letezoWorker.Exp = worker.Exp;
+
             _db.SaveChanges();
+
             return RedirectToAction("WorkersUpdate");
         }
         [HttpGet]
         public IActionResult NewWorkers()
         {
+            ViewBag.Jobs = _db.Jobs.ToList();
             return View();
         }
         [HttpPost]
@@ -86,18 +109,26 @@ namespace Lakasdr.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.Jobs = _db.Jobs.ToList();
+                return View(worker);
+            }
+
+            var letezoMunka = _db.Jobs.Any(j => j.Id == worker.WorkId);
+            if (!letezoMunka)
+            {
+                ModelState.AddModelError("WorkId", "A kiválasztott munka nem létezik.");
+                ViewBag.Jobs = _db.Jobs.ToList();
                 return View(worker);
             }
 
             var dolgozo = new Workers
             {
-                Id = worker.Id,
                 Name = worker.Name,
-                WorkId = worker.Id,
+                WorkId = worker.WorkId,
                 Exp = worker.Exp
             };
 
-            _db.Workers.Add(worker);
+            _db.Workers.Add(dolgozo);
             _db.SaveChanges();
 
             return RedirectToAction("WorkersUpdate");

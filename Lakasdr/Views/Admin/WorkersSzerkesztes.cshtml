@@ -1,6 +1,8 @@
 ﻿@model Lakasdr.Models.Workers
+@using Lakasdr.Models
 @{
     ViewData["Title"] = "Dolgozó szerkesztése";
+    var jobs = ViewBag.Jobs as List<Jobs>;
 }
 
 <section class="hero-card reveal">
@@ -10,6 +12,9 @@
 
 <section class="form-card mt-4 reveal">
     <form asp-action="WorkersSzerkesztes" method="post" class="inline-form">
+        <input asp-for="Id" type="hidden" />
+
+        <div asp-validation-summary="All" class="text-danger"></div>
 
         <div>
             <label asp-for="Name">Név</label>
@@ -18,14 +23,23 @@
         </div>
 
         <div>
-            <label asp-for="WorkId">Munka azonosító</label>
-            <input asp-for="WorkId" class="form-control" type="number" />
+            <label asp-for="WorkId">Munka</label>
+            <select asp-for="WorkId" class="form-control">
+                <option value="">-- Válassz munkát --</option>
+                @if (jobs != null)
+                {
+                    foreach (var job in jobs)
+                    {
+                        <option value="@job.Id">@job.Name</option>
+                    }
+                }
+            </select>
             <span asp-validation-for="WorkId" class="text-danger"></span>
         </div>
 
         <div>
             <label asp-for="Exp">Tapasztalat</label>
-            <textarea asp-for="Exp" class="form-control"></textarea>
+            <input asp-for="Exp" class="form-control" type="number" />
             <span asp-validation-for="Exp" class="text-danger"></span>
         </div>
 
@@ -35,3 +49,5 @@
         </div>
     </form>
 </section>
+
+<partial name="_ValidationScriptsPartial" />
