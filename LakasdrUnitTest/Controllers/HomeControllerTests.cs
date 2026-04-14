@@ -10,9 +10,9 @@ namespace Lakasdr.Tests.Controllers;
 public class HomeControllerTests
 {
     [Fact]
-    public void Munkatekintes_MissingJob_ReturnsNotFound()
+    public void Munkatekintes_nemletezo()
     {
-        using var db = TestDbFactory.CreateContext(nameof(Munkatekintes_MissingJob_ReturnsNotFound));
+        using var db = TestDbFactory.CreateContext(nameof(Munkatekintes_nemletezo));
         var env = new FakeWebHostEnvironment();
         var controller = new HomeController(db, env);
 
@@ -22,9 +22,9 @@ public class HomeControllerTests
     }
 
     [Fact]
-    public void Munkatekintes_ExistingJob_ReturnsViewWithModel()
+    public void Munkatekintes_letezo()
     {
-        using var db = TestDbFactory.CreateContext(nameof(Munkatekintes_ExistingJob_ReturnsViewWithModel));
+        using var db = TestDbFactory.CreateContext(nameof(Munkatekintes_letezo));
         db.Jobs.Add(new Jobs { Id = 1, Name = "Festés", Description = "Belső szobafestés" });
         db.SaveChanges();
 
@@ -39,9 +39,9 @@ public class HomeControllerTests
     }
 
     [Fact]
-    public void Kiszamol_Category1Area10_SetsExpectedTotalAndReturnsCalculatorView()
+    public void Kiszamol_helyes()
     {
-        using var db = TestDbFactory.CreateContext(nameof(Kiszamol_Category1Area10_SetsExpectedTotalAndReturnsCalculatorView));
+        using var db = TestDbFactory.CreateContext(nameof(Kiszamol_helyes));
         var env = new FakeWebHostEnvironment();
         var controller = new HomeController(db, env);
 
@@ -53,9 +53,9 @@ public class HomeControllerTests
     }
 
     [Fact]
-    public void Ertekel_NewEmail_CreatesRatingAndRedirects()
+    public void Ertekel_letrehozas()
     {
-        using var db = TestDbFactory.CreateContext(nameof(Ertekel_NewEmail_CreatesRatingAndRedirects));
+        using var db = TestDbFactory.CreateContext(nameof(Ertekel_letrehozas));
         var env = new FakeWebHostEnvironment();
         var controller = new HomeController(db, env);
 
@@ -69,9 +69,9 @@ public class HomeControllerTests
     }
 
     [Fact]
-    public void Ertekel_ExistingEmail_UpdatesExistingRating()
+    public void Ertekel_letezovaltoztatasa()
     {
-        using var db = TestDbFactory.CreateContext(nameof(Ertekel_ExistingEmail_UpdatesExistingRating));
+        using var db = TestDbFactory.CreateContext(nameof(Ertekel_letezovaltoztatasa));
         db.Ratings.Add(new Ertekeles
         {
             Email = "teszt@example.com",
@@ -94,9 +94,9 @@ public class HomeControllerTests
     }
 
     [Fact]
-    public void Upload_InvalidExtension_ReturnsViewAndDoesNotSaveImage()
+    public void Upload_nemhelyestipus()
     {
-        using var db = TestDbFactory.CreateContext(nameof(Upload_InvalidExtension_ReturnsViewAndDoesNotSaveImage));
+        using var db = TestDbFactory.CreateContext(nameof(Upload_nemhelyestipus ));
         var env = new FakeWebHostEnvironment
         {
             WebRootPath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString())
