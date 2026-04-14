@@ -18,11 +18,11 @@ public class AdminControllerTests
         var env = new FakeWebHostEnvironment();
         var controller = new AdminController(db, env);
         controller.TempData = new TempDataDictionary(
-            new DefaultHttpContext(),   
+            new DefaultHttpContext(),
             Mock.Of<ITempDataProvider>());
 
         var result = controller.Admin("admin", "1234");
-            
+
 
         var redirect = Assert.IsType<RedirectToActionResult>(result);
         Assert.Equal("AdminFelulet", redirect.ActionName);
@@ -42,9 +42,9 @@ public class AdminControllerTests
     }
 
     [Fact]
-    public void WorkersSzerkesztes_nemeletezo()
+    public void WorkersSzerkesztes_nemletezo()
     {
-        using var db = TestDbFactory.CreateContext(nameof(WorkersSzerkesztes_nemeletezo));
+        using var db = TestDbFactory.CreateContext(nameof(WorkersSzerkesztes_nemletezo));
         var env = new FakeWebHostEnvironment();
         var controller = new AdminController(db, env);
 
@@ -76,9 +76,9 @@ public class AdminControllerTests
     }
 
     [Fact]
-    public void RatingTorles_ExistingRating_DeletesRatingAndRedirects()
+    public void RatingTorles_sikerestorles()
     {
-        using var db = TestDbFactory.CreateContext(nameof(RatingTorles_ExistingRating_DeletesRatingAndRedirects));
+        using var db = TestDbFactory.CreateContext(nameof(RatingTorles_sikerestorles));
         db.Ratings.Add(new Ertekeles
         {
             Id = 10,
@@ -97,5 +97,39 @@ public class AdminControllerTests
         var redirect = Assert.IsType<RedirectToActionResult>(result);
         Assert.Equal("AdminRating", redirect.ActionName);
         Assert.Empty(db.Ratings);
+    }
+
+
+    [Fact]
+    public void JobSzerkesztes_nemeletezo()
+    {
+        using var db = TestDbFactory.CreateContext(nameof(JobSzerkesztes_nemeletezo));
+        var env = new FakeWebHostEnvironment();
+        var controller = new AdminController(db, env);
+
+        var result = controller.JobsSzerkesztes(999);
+
+        Assert.IsType<NotFoundResult>(result);
+    }
+
+    [Fact]
+    public void NewJob_sikeresletrehozas()
+    {
+        using var db = TestDbFactory.CreateContext(nameof(NewJob_sikeresletrehozas));
+        var env = new FakeWebHostEnvironment();
+        var controller = new AdminController(db, env);
+
+        var job = new Jobs
+        {
+            Name = "Nyilászáró csere",
+            Description = "A nyílászárók cseréje során korszerű, hőszigetelt ablakok és ajtók kerültek beépítésre, így az ingatlan energiahatékonyabbá vált, miközben esztétikusabb és komfortosabb környezetet biztosít a mindennapokhoz."
+        };
+
+        var result = controller.NewJobs(job);
+
+        var redirect = Assert.IsType<RedirectToActionResult>(result);
+        Assert.Equal("Jobs", redirect.ActionName);
+        var saved = Assert.Single(db.Jobs);
+        Assert.Equal("Nyilászáró csere", saved.Name);
     }
 }
