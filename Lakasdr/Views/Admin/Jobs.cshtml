@@ -6,7 +6,7 @@
 <section class="hero-card reveal">
     <span class="hero-badge">Admin</span>
     <h2 class="section-title">Munkák szerkesztése</h2>
-    <p class="section-subtitle">Áttekinthető táblázat, akciógombokkal és egységes admin stílussal.</p>
+    
 </section>
 
 <section class="table-card mt-4 reveal">
@@ -31,10 +31,10 @@
                     <td>@work.Name</td>
                     <td>@work.Description</td>
                     <td>
-                        <a asp-action="JobsSzerkesztes" asp-controller="Admin" asp-route-id="@work.Id" class="btn btn-secondary">Szerkesztés</a>
+                        <a asp-action="JobsSzerkesztes" asp-controller="Admin" asp-route-id="@work.Id" class="btn btn-secondary" style="min-width:130px;">Szerkesztés</a>
                     </td>
                     <td>
-                        <form asp-action="DeleteJobs" asp-controller="Admin" method="post" style="display:inline;">
+                        <form asp-action="DeleteJobs" asp-controller="Admin" method="post" style="min-width:120px;">
                             <input type="hidden" name="id" value="@work.Id" />
                             <button type="submit" class="btn btn-danger">Törlés</button>
                         </form>

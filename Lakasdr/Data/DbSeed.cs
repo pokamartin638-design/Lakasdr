@@ -10,11 +10,33 @@ namespace Lakasdr.Data
             {
                 seed.Ratings.Add(new Ertekeles
                 {
-                    Ertek = 4,
-                    Desc = "nagyon jó!",
+                    Ertek = 5,
+                    Desc = "Maximálisan elégedett vagyok! A kivitelezés gyors, precíz és igényes volt. A csapat végig profi módon állt a munkához, és minden részletre odafigyeltek. Ritka az ilyen megbízható szolgáltatás, csak ajánlani tudom!",
                     Email = "toth.mark0603@gmail.com",
                     Ideje = DateTime.Now
                 });
+                seed.Ratings.Add(new Ertekeles
+                {
+                    Ertek = 4,
+                    Desc = "Nagyon jó tapasztalataim voltak a céggel. A munka minősége kifogástalan, és alapvetően tartották a megbeszélteket. Apróbb csúszások előfordultak, de összességében elégedett vagyok, szívesen ajánlom őket.",
+                    Email = "peldaferi11@gmail.com",
+                    Ideje = DateTime.Now
+                });
+                seed.Ratings.Add(new Ertekeles
+                {
+                    Ertek = 3,
+                    Desc = "A munka elfogadható lett, de volt néhány kellemetlenség. A kivitelezés rendben volt, viszont a kommunikáció nem mindig működött jól, és a határidők csúsztak. Közepes élmény, van hova fejlődni.",
+                    Email = "kiskovacskata01@gmail.com",
+                    Ideje = DateTime.Now
+                });
+                seed.Ratings.Add(new Ertekeles
+                {
+                    Ertek = 2,
+                    Desc = "Sajnos nem voltam teljesen elégedett. Több alkalommal is csúsztak a határidők, és a kivitelezés minősége sem mindenhol volt megfelelő. Pozitívum, hogy próbálták javítani a hibákat, de összességében többet vártam.",
+                    Email = "durvamark200603@gmail.com",
+                    Ideje = DateTime.Now
+                });
+                
             }
 
             if (!seed.Jobs.Any())
@@ -54,6 +76,20 @@ namespace Lakasdr.Data
                     new Workers { Name = "Tamás András", WorkId = 3, Exp = 7 },
                     new Workers { Name = "Póka Andrea", WorkId = 1, Exp = 2 }
                 );
+            }
+
+            if (seed.Images.Count() <= 1)
+            {
+                seed.Images.AddRange(
+                    new Image
+                    {
+                       
+                        Nev = "kep1.jpg",
+                        FilePath = "/images/kep1.jpg",
+                        UploadDate = DateTime.Now,
+                    }
+                );
+
             }
 
             seed.SaveChanges();

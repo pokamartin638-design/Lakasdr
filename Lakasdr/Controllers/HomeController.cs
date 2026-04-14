@@ -126,7 +126,7 @@ namespace Lakasdr.Controllers
             if (string.IsNullOrWhiteSpace(nev_delete))
             {
                 TempData["Error"] = "Add meg a törlendõ kép nevét!";
-                return RedirectToAction("Index"); 
+                return RedirectToAction("ImageUpdate"); 
             }
 
            

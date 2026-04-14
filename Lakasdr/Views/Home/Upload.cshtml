@@ -22,12 +22,30 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="@item.FilePath" alt="@item.Nev"
+                                 style="width:120px;height:80px;object-fit:cover;border-radius:12px;" />
+                        </td>
+                        <td>@item.Nev</td>
+                        <td>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">
+                                Törlés
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
             {
                 <tr>
-                    <td><img src="@item.FilePath" alt="@item.Nev" style="width:120px;height:80px;object-fit:cover;border-radius:12px;" /></td>
-                    <td>@item.Nev</td>
-                    <td><a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Törlés</a></td>
+                    <td colspan="3" style="text-align:center;">
+                        Nincs feltöltött kép
+                    </td>
                 </tr>
             }
         </tbody>
