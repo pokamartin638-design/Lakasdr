@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<Lakasdr.Models.Image>
+@{
     ViewData["Title"] = "Képkezelés";
 }
 
@@ -57,3 +58,38 @@
         </section>
     </div>
 </div>
+
+
+<section class="table-card mt-4 reveal">
+    <h3 class="mb-3">Feltöltött képek</h3>
+
+    @if (Model != null && Model.Any())
+    {
+        <table class="app-table">
+            <thead>
+                <tr>
+                    <th>Kép</th>
+                    <th>Név</th>
+                    <th>Útvonal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="@item.FilePath" alt="@item.Nev"
+                                 style="width:120px;height:80px;object-fit:cover;border-radius:12px;" />
+                        </td>
+                        <td>@item.Nev</td>
+                        <td>@item.FilePath</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Nincs még feltöltött kép.</p>
+    }
+</section>

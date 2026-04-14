@@ -33,9 +33,11 @@
                         </td>
                         <td>@item.Nev</td>
                         <td>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">
-                                Törlés
-                            </a>
+                            <form asp-action="DeleteByName" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="nev_delete" value="@item.Nev" />
+                                <button type="submit" class="btn btn-danger">Törlés</button>
+                            </form>
                         </td>
                     </tr>
                 }

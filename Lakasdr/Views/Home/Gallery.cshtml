@@ -1,34 +1,19 @@
 ﻿@model List<Image>
-@{
-    ViewData["Title"] = "Galéria";
-}
-
-<section class="hero-card reveal">
-    <span class="hero-badge">Referencia képek</span>
-    <h2 class="section-title">Galéria</h2>
-    <p class="section-subtitle">Nézze meg a feltöltött munkákat.</p>
-</section>
 
 @if (!Model.Any())
 {
-    <section class="empty-card mt-4 reveal">
-        <h4>Még nincs feltöltött kép</h4>
-        <p class="mb-0 text-muted-custom">Az admin felületen bármikor hozzáadhat új referenciaképeket.</p>
-    </section>
+    <p>Nincs még feltöltött kép.</p>
 }
 else
 {
-    <section class="gallery-grid mt-4">
-        @foreach (var img in Model)
-        {
-            <article class="gallery-card reveal">
-                <img src="@img.FilePath" alt="@img.Nev" />
-                <div class="gallery-card-body">
-                    <span class="tag">Feltöltött referencia</span>
-                    <h4 class="mt-3 mb-1">@img.Nev</h4>
-                    
-                </div>
-            </article>
-        }
-    </section>
+    foreach (var img in Model)
+    {
+        <article class="gallery-card reveal">
+            <img src="@img.FilePath" alt="@img.Nev" />
+            <div class="gallery-card-body">
+                <span class="tag">Feltöltött referencia</span>
+                <h4 class="mt-3 mb-1">@img.Nev</h4>
+            </div>
+        </article>
+    }
 }

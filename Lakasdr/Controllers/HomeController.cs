@@ -74,7 +74,11 @@ namespace Lakasdr.Controllers
         [HttpGet]
         public IActionResult Upload()
         {
-            return View();
+            var images = _db.Images
+                .OrderByDescending(x => x.UploadDate)
+                .ToList();
+
+            return View(images);
         }
         
 
@@ -83,13 +87,25 @@ namespace Lakasdr.Controllers
         public IActionResult Upload(string nev, IFormFile file)
         {
             if (file == null || file.Length == 0)
-                return View();
+            {
+                TempData["Error"] = "Nem választottál fájlt.";
+                return RedirectToAction("ImageUpdate");
+            }
 
             var allowed = new[] { ".jpg", ".jpeg", ".png" };
-            var ext = Path.GetExtension(file.FileName).ToLower();
+            var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
 
             if (!allowed.Contains(ext))
-                return View();
+            {
+                TempData["Error"] = "Csak jpg, jpeg és png fájl tölthetõ fel.";
+                return RedirectToAction("ImageUpdate");
+            }
+
+            if (string.IsNullOrWhiteSpace(nev))
+            {
+                TempData["Error"] = "Add meg a kép nevét is.";
+                return RedirectToAction("ImageUpdate");
+            }
 
             var fileName = Guid.NewGuid().ToString() + ext;
             var uploadPath = Path.Combine(_env.WebRootPath, "uploads");
@@ -106,16 +122,16 @@ namespace Lakasdr.Controllers
 
             var image = new Image
             {
-                Nev = nev,
+                Nev = nev.Trim(),
                 FilePath = "/uploads/" + fileName,
                 UploadDate = DateTime.Now
             };
 
             _db.Images.Add(image);
             _db.SaveChanges();
-            
 
-            return View("ImageUpdate");
+            TempData["Success"] = "A kép sikeresen feltöltve.";
+            return RedirectToAction("ImageUpdate");
         }
 
         // DELETE
@@ -162,7 +178,11 @@ namespace Lakasdr.Controllers
 
         public IActionResult ImageUpdate()
         {
-            return View();
+            var images = _db.Images
+                .OrderByDescending(x => x.UploadDate)
+                .ToList();
+
+            return View(images);
         }
        
 //--------------------------------------------------------------------------------------------------------
@@ -333,29 +353,14 @@ namespace Lakasdr.Controllers
         //--------------------------------------------------------------------------------------------------------
         public IActionResult Gallery()
         {
-            var uploadsPath = Path.Combine(_env.WebRootPath, "uploads");
-            var image = _db.Images.ToList(); // List<Image>
-
-            if (!Directory.Exists(uploadsPath))
-                Directory.CreateDirectory(uploadsPath);
-
-            var allowedExt = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-        { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
-
-            var images = Directory.EnumerateFiles(uploadsPath)
-                .Where(f => allowedExt.Contains(Path.GetExtension(f)))
-                .Select(f => "/uploads/" + Path.GetFileName(f))  // URL a wwwroot-on belül
-                .OrderByDescending(url => System.IO.File.GetLastWriteTime(
-                    Path.Combine(uploadsPath, Path.GetFileName(url))
-                ))
+            var images = _db.Images
+                .OrderByDescending(i => i.UploadDate)
                 .ToList();
-            
-            return View(image);
 
-            
+            return View(images);
         }
 
-//-----------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------
         public IActionResult Ertekeles()
         {
             ViewBag.Atlag = _db.Ratings.Any()

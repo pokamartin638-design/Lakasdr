@@ -78,14 +78,77 @@ namespace Lakasdr.Data
                 );
             }
 
-            if (seed.Images.Count() <= 1)
+            if (!seed.Images.Any())
             {
                 seed.Images.AddRange(
                     new Image
                     {
                        
-                        Nev = "kep1.jpg",
+                        Nev = "terasz",
                         FilePath = "/images/kep1.jpg",
+                        UploadDate = DateTime.Now,
+                    },
+                    new Image
+                    {
+
+                        Nev = "kerités",
+                        FilePath = "/images/kep2.jpg",
+                        UploadDate = DateTime.Now,
+                    },
+                    new Image
+                    {
+
+                        Nev = "színezés",
+                        FilePath = "/images/kep3.jpg",
+                        UploadDate = DateTime.Now,
+                    },
+                    new Image
+                    {
+
+                        Nev = "fal építés",
+                        FilePath = "/images/kep4.jpg",
+                        UploadDate = DateTime.Now,
+                    },
+                    new Image
+                    {
+
+                        Nev = "csempészés",
+                        FilePath = "/images/kep5.jpg",
+                        UploadDate = DateTime.Now,
+                    },
+                    new Image
+                    {
+
+                        Nev = "kert",
+                        FilePath = "/images/kep6.jpg",
+                        UploadDate = DateTime.Now,
+                    },
+                    new Image
+                    {
+
+                        Nev = "kert2",
+                        FilePath = "/images/kep7.jpg",
+                        UploadDate = DateTime.Now,
+                    },
+                    new Image
+                    {
+
+                        Nev = "csempézés2",
+                        FilePath = "/images/kep8.jpg",
+                        UploadDate = DateTime.Now,
+                    },
+                    new Image
+                    {
+
+                        Nev = "tető",
+                        FilePath = "/images/kep9.jpg",
+                        UploadDate = DateTime.Now,
+                    },
+                    new Image
+                    {
+
+                        Nev = "betonozás",
+                        FilePath = "/images/kep10.jpg",
                         UploadDate = DateTime.Now,
                     }
                 );
