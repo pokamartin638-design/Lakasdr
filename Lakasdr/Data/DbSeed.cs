@@ -6,7 +6,7 @@ namespace Lakasdr.Data
     {
         public static void Seed(WorkDbContext seed)
         {
-            if (!seed.Ratings.Any())
+            if (seed.Ratings.Count()<=1)
             {
                 seed.Ratings.Add(new Ertekeles
                 {
